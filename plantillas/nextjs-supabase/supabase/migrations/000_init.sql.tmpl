@@ -1,0 +1,65 @@
+-- Migracion inicial generada por Arnes el {{DATE}}.
+--
+-- Esta migracion NO crea tablas. Solo establece convenciones basicas y
+-- helpers que las features siguientes pueden usar.
+--
+-- Cada feature posterior aniade sus propias migraciones, con sus propias
+-- tablas, indices y politicas RLS.
+
+-- Funciones helper comunes (si necesarias)
+
+-- Trigger generico para updated_at
+create or replace function public.set_updated_at()
+returns trigger
+language plpgsql
+security definer
+as $$
+begin
+  new.updated_at = now();
+  return new;
+end;
+$$;
+
+comment on function public.set_updated_at is
+  'Trigger generico para mantener updated_at sincronizado. Usar con: '
+  'create trigger ... before update on <tabla> for each row '
+  'execute function public.set_updated_at();';
+
+-- Convencion: cada tabla nueva debe llevar:
+--   - RLS activado
+--   - politicas SELECT, INSERT, UPDATE, DELETE (la que aplique)
+--   - columna user_id uuid references auth.users(id) on delete cascade
+--   - columnas created_at y updated_at timestamptz default now()
+--   - trigger set_updated_at en columna updated_at
+--
+-- Ejemplo (para la siguiente migracion):
+--
+-- create table public.items (
+--   id uuid primary key default gen_random_uuid(),
+--   user_id uuid not null references auth.users(id) on delete cascade,
+--   name text not null,
+--   created_at timestamptz not null default now(),
+--   updated_at timestamptz not null default now()
+-- );
+--
+-- alter table public.items enable row level security;
+--
+-- create policy "users see own items"
+--   on public.items for select
+--   using (auth.uid() = user_id);
+--
+-- create policy "users insert own items"
+--   on public.items for insert
+--   with check (auth.uid() = user_id);
+--
+-- create policy "users update own items"
+--   on public.items for update
+--   using (auth.uid() = user_id);
+--
+-- create policy "users delete own items"
+--   on public.items for delete
+--   using (auth.uid() = user_id);
+--
+-- create trigger items_updated_at
+--   before update on public.items
+--   for each row execute function public.set_updated_at();

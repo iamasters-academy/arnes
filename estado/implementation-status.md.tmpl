@@ -1,0 +1,98 @@
+# Implementation Status
+
+**Proyecto:** {{PROJECT_NAME}}
+**Modo:** <nuevo | adoptar | mantener>
+**Active feature:** <feature-name o «ninguna»>
+**Fase actual:** <gather | spec | plan | tasks | tests | code | review | adversarial | archive | idle>
+**Ultima actualizacion:** {{TIMESTAMP}}
+**Sesion activa:** {{SESSION_ID}}
+**Host:** {{HOST}}
+
+---
+
+## Fases completadas (feature activa)
+
+- [ ] gather
+- [ ] spec
+- [ ] plan
+- [ ] tasks
+- [ ] tests
+- [ ] code
+- [ ] review
+- [ ] adversarial
+- [ ] archive
+
+---
+
+## Features archivadas
+
+<!-- Lista de features completadas. Se actualiza cuando una pasa a archived. -->
+
+| Feature | Fecha archive | Commit |
+|---------|---------------|--------|
+| <ninguna todavia> | - | - |
+
+---
+
+## Notas activas
+
+<!--
+Notas sobre la feature en curso. Se actualizan despues de decisiones
+relevantes del usuario o de los sub-agentes.
+-->
+
+-
+
+---
+
+## Decisiones tomadas
+
+<!--
+Decisiones importantes con timestamp. Esto es util para auditar.
+
+Ejemplos:
+- {{TIMESTAMP}}: Usuario eligio Marketplaces ES/FR/IT/DE/BE.
+- {{TIMESTAMP}}: Spec aprobada para feature `api-credentials`.
+- {{TIMESTAMP}}: Plan aprobado, salto al codigo (saltable confirmado por usuario).
+-->
+
+-
+
+---
+
+## Bloqueos actuales
+
+<!-- Si hay un blocker, se documenta aqui. -->
+
+<!-- Ejemplo:
+- 2026-05-19T20:34:12Z: adversarial-reviewer encontro C01 (RLS missing).
+  Esperando fix.
+-->
+
+- ninguno
+
+---
+
+## Sesiones recientes
+
+<!--
+Las ultimas N sesiones que tocaron este proyecto. Util para auto-resume.
+Se actualiza automaticamente.
+-->
+
+| Sesion | Inicio | Fin | Fase final | Host |
+|--------|--------|-----|------------|------|
+| {{SESSION_ID}} | {{TIMESTAMP}} | - | - | {{HOST}} |
+
+---
+
+## Como leer este fichero
+
+Si abres una sesion nueva en este proyecto, Arnes lee este fichero y sabe:
+
+1. **Modo y feature activa:** que estamos haciendo.
+2. **Fase actual:** en que paso del ciclo estamos.
+3. **Bloqueos:** si hay algo que impide avanzar.
+4. **Notas y decisiones:** contexto que la IA no puede deducir del codigo.
+
+Esto permite auto-resume sin que el usuario tenga que recordar nada.

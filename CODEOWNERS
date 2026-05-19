@@ -1,0 +1,20 @@
+# CODEOWNERS para la skill Arnes
+#
+# Este archivo define quien revisa los cambios cuando se hace PR.
+# Mas info: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Owner principal: Angel
+*                       @angelapaia
+
+# Co-mantenedor: Fernando (concepto original fs-scaffold, revisor critico)
+docs/**                 @angelapaia @fermonterom
+modos/**                @angelapaia @fermonterom
+scripts/**              @angelapaia @fermonterom
+plantillas/**           @angelapaia @fermonterom
+
+# Cambios en seguridad y atomicidad requieren ambos
+docs/seguridad.md                            @angelapaia @fermonterom
+docs/atomicidad.md                           @angelapaia @fermonterom
+scripts/atomic.mjs                           @angelapaia @fermonterom
+scripts/session.mjs                          @angelapaia @fermonterom
+plantillas/armazon-comun/hooks/              @angelapaia @fermonterom

@@ -1,0 +1,19 @@
+export default function HomePage() {
+  return (
+    <main className="flex min-h-screen flex-col items-center justify-center p-8">
+      <div className="max-w-2xl text-center">
+        <h1 className="mb-4 text-4xl font-bold">{{PROJECT_NAME}}</h1>
+        <p className="mb-8 text-lg text-gray-600">
+          {{PROJECT_DESCRIPTION}}
+        </p>
+        <p className="text-sm text-gray-400">
+          Generado con Arnes v0.1.0 el {{DATE}}.
+        </p>
+        <p className="mt-8 text-sm">
+          Para anadir features: pide a tu IA «vamos a crear la feature X»
+          y Arnes orquestara el ciclo SDD+TDD.
+        </p>
+      </div>
+    </main>
+  );
+}

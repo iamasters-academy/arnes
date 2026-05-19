@@ -1,0 +1,130 @@
+# Spec: {{FEATURE_TITLE}}
+
+**Estado:** draft
+**Autor:** spec-writer
+**Fecha:** {{DATE}}
+**Proyecto:** {{PROJECT_NAME}}
+
+---
+
+## Resumen
+
+<!-- Una frase. Que hace la feature. -->
+
+---
+
+## Motivacion
+
+<!-- Por que la necesitamos. Que problema resuelve. -->
+
+---
+
+## Escenarios
+
+<!--
+Lista de escenarios concretos en lenguaje natural. Ejemplos:
+
+- Escenario 1: el usuario hace clic en "Crear marketplace", introduce ES como
+  pais y A1B2C3 como seller_id. Despues de guardar, ve el marketplace en su lista.
+- Escenario 2: el usuario intenta crear un marketplace con un country_code que
+  no esta en la lista permitida (ES/FR/IT/DE/BE). El sistema rechaza con mensaje
+  "Pais no soportado".
+- Escenario 3: usuario A no puede ver los marketplaces del usuario B.
+-->
+
+- Escenario 1:
+- Escenario 2:
+- Escenario 3:
+
+---
+
+## Reglas de negocio
+
+<!--
+Que esta permitido y que no. Limites, validaciones, restricciones.
+
+Ejemplos:
+- Solo se permiten los siguientes country_codes: ES, FR, IT, DE, BE.
+- Un usuario puede tener maximo 10 marketplaces.
+- El seller_id es alfanumerico de exactamente 10 caracteres.
+-->
+
+-
+
+---
+
+## Datos
+
+<!--
+Que entidades nuevas o modificadas. Esquema basico (tabla, campos, relaciones).
+No es SQL exacto (eso va en el plan), solo descripcion.
+
+Ejemplo:
+
+### Tabla `marketplaces`
+- `id` (uuid, PK)
+- `user_id` (uuid, FK a auth.users)
+- `country_code` (texto, enum ES/FR/IT/DE/BE)
+- `seller_id` (texto, 10 chars)
+- `created_at` (timestamp)
+-->
+
+###
+
+-
+
+---
+
+## Edge cases
+
+<!--
+Casos raros que hay que cubrir. La spec-writer pregunta al usuario por cada uno.
+
+- ¿Que pasa si el usuario no esta autenticado?
+- ¿Que pasa si el dato ya existe (duplicado)?
+- ¿Que pasa si la operacion falla a la mitad (red, DB)?
+- ¿Que pasa si el input es invalido?
+- ¿Que pasa si dos usuarios hacen la misma operacion a la vez?
+-->
+
+-
+
+---
+
+## Fuera de alcance
+
+<!--
+Lo que esta feature NO hace. Para evitar scope creep.
+
+Ejemplos:
+- No incluye editar marketplaces (esta en otra feature).
+- No incluye importar marketplaces desde CSV.
+- No incluye notificaciones por email cuando se crea uno nuevo.
+-->
+
+-
+
+---
+
+## Dependencias
+
+<!--
+Otras features o servicios necesarios.
+
+Ejemplos:
+- Requiere autenticacion configurada (feature `auth-basic`).
+- Requiere acceso a la API de Amazon Selling Partner.
+-->
+
+-
+
+---
+
+## Aprobacion
+
+- [ ] Spec revisada por el usuario.
+- [ ] Edge cases discutidos.
+- [ ] Fuera de alcance explicito.
+- [ ] Aprobada para pasar a fase «plan».
+
+Fecha de aprobacion:

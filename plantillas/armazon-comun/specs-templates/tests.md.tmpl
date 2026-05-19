@@ -1,0 +1,97 @@
+# Tests: {{FEATURE_TITLE}}
+
+**Estado:** red (todos los tests fallan, esperado)
+**Autor:** test-writer
+**Fecha:** {{DATE}}
+**Basado en:** spec.md, plan.md, tasks.md
+
+---
+
+## Inventario
+
+| # | Nombre | Tipo | Fichero | Estado |
+|---|--------|------|---------|--------|
+| TST01 | <nombre del test> | unit | `<path>.test.ts` | red |
+| TST02 | <nombre del test> | unit | `<path>.test.ts` | red |
+| TST03 | <nombre del test> | integration | `<path>.test.ts` | red |
+| TST04 | <nombre del test> | e2e | `e2e/<path>.spec.ts` | red |
+
+---
+
+## Cobertura de escenarios (spec.md)
+
+<!--
+Cada escenario de la spec.md debe tener al menos un test que lo cubra.
+Mapping explicito:
+-->
+
+| Escenario (spec.md) | Tests que lo cubren |
+|---------------------|---------------------|
+| <Escenario 1> | TST01 |
+| <Escenario 2> | TST02, TST03 |
+| <Escenario 3> | TST04 |
+
+---
+
+## Cobertura de edge cases (spec.md)
+
+| Edge case | Test |
+|-----------|------|
+| Usuario no autenticado | TST05 |
+| Input invalido | TST02 |
+| Duplicado | TST06 |
+| Race condition | TST07 |
+
+---
+
+## Notas de implementacion
+
+<!--
+Decisiones sobre el harness de tests:
+
+- Setup: ¿Supabase local en Docker? ¿Fixtures en `lib/test/factories.ts`?
+- Teardown: ¿Reset DB entre tests?
+- Mocks: ¿que servicios externos se mockean? (Stripe, email, etc.)
+- E2E: ¿que browser? ¿que viewport?
+-->
+
+-
+
+---
+
+## Comando de ejecucion
+
+```bash
+# Unit + integration
+pnpm test
+
+# E2E
+pnpm test:e2e
+
+# Coverage
+pnpm test:coverage
+```
+
+---
+
+## Verificacion final
+
+Antes de pasar a la fase de codigo (fase 6), ejecutar `pnpm test` y verificar:
+
+- [ ] Todos los tests nuevos compilan (no errores TypeScript).
+- [ ] Todos los tests nuevos fallan (estan en rojo).
+- [ ] Los tests fallan por la razon esperada (codigo no implementado),
+  no por errores en el test mismo.
+
+Fecha de verificacion en rojo:
+
+---
+
+## Aprobacion
+
+- [ ] Cobertura de todos los escenarios de spec.md.
+- [ ] Cobertura de todos los edge cases mencionados.
+- [ ] Tests verificados en rojo.
+- [ ] Aprobado para pasar a fase «codigo».
+
+Fecha de aprobacion:

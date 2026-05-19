@@ -1,0 +1,21 @@
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*~
+
+# Sandboxes de test E2E
+/tmp/arnes-e2e-*
+
+# Archivos temporales locales si los hubiera
+*.bak
+*.log
+
+# Por si alguien arranca tests en la propia carpeta de la skill
+node_modules/
+coverage/
+
+# Nota: las plantillas (.tmpl) SI se commitean. Son contenido de la skill.

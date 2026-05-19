@@ -1,0 +1,42 @@
+cff-version: 1.2.0
+title: "Arnes: SDD+TDD scaffolding skill for Claude Code"
+message: "Si usas Arnes en tu trabajo, por favor citalo asi."
+type: software
+authors:
+  - given-names: Angel
+    family-names: Aparicio
+    email: aaparicio@iamastersacademy.com
+    affiliation: "IA Masters Academy / AASC Associates"
+    alias: "angelapaia"
+    orcid: ""
+contributors:
+  - given-names: Fernando
+    family-names: Montero
+    affiliation: "Fersora Solutions SL"
+    alias: "fermonterom"
+    role: "Concepto original (fs-scaffold), 18-may-2026"
+identifiers:
+  - type: url
+    value: "https://github.com/iamasters-academy/arnes"
+    description: "Repositorio de la skill arnes"
+repository-code: "https://github.com/iamasters-academy/arnes"
+url: "https://github.com/iamasters-academy/arnes"
+abstract: >-
+  Skill de Claude Code para arrancar proyectos de software profesional
+  con metodologia Spec-Driven Development (SDD) + Test-Driven Development
+  (TDD). Tres modos: empezar nuevo / adoptar existente / mantener vivo.
+  Multi-IA via AGENTS.md. Atomicidad, lock concurrente, auto-resume,
+  hooks de seguridad pre-commit. Opt-in en iAmasters OS.
+keywords:
+  - claude-code
+  - skill
+  - sdd
+  - tdd
+  - scaffolding
+  - software-quality
+  - nextjs
+  - supabase
+  - iamasters
+license: MIT
+version: 0.1.0
+date-released: "2026-05-19"

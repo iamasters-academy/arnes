@@ -1,0 +1,216 @@
+# AGENTS.md — {{PROJECT_NAME}}
+
+Este es el **manifiesto multi-IA** del proyecto. Cualquier asistente de codigo
+(Claude, Codex, Copilot, Gemini, Cursor) debe leer este fichero antes de
+sugerir cambios.
+
+`CLAUDE.md`, `.codex/instructions.md`, `.github/copilot-instructions.md` y
+`GEMINI.md` son **symlinks** a este fichero. Cambia aqui, todos lo reciben.
+
+---
+
+## El proyecto
+
+**Nombre:** {{PROJECT_NAME}}
+**Descripcion:** <Una frase. Que hace el proyecto.>
+**Estado:** <pre-MVP | MVP | produccion>
+**Fecha de creacion:** {{DATE}}
+**Mantiene Arnes:** si (skill `arnes` v0.1.0)
+
+---
+
+## Stack
+
+- **Frontend:** Next.js (App Router) + React + Tailwind CSS
+- **Backend:** Supabase (Auth + DB + Storage + RLS)
+- **Gestor de paquetes:** PNPM
+- **Tests:** Vitest (unit/integration) + Playwright (E2E)
+- **Deploy:** Vercel
+- **Lenguaje:** TypeScript estricto (`strict: true`)
+
+---
+
+## Reglas inviolables (Arnes)
+
+Estas reglas vienen de `docs/seguridad.md` de la skill Arnes. **No se negocian.**
+
+1. **Secrets nunca van al repo.** El hook pre-commit lo bloquea.
+2. **RLS obligatorio** en toda tabla Supabase nueva.
+3. **Validacion Zod** en cada endpoint que recibe input externo.
+4. **Autenticacion y autorizacion separadas.** Supabase Auth + RLS.
+5. **Headers de seguridad por defecto** (CSP, HSTS, X-Frame-Options, etc.).
+6. **OWASP Top 10** revisado en cada feature (adversarial-reviewer).
+7. **No commitear sin pasar el hook pre-commit.**
+8. **No usar `--no-verify`** salvo emergencias documentadas.
+
+---
+
+## Metodologia (Arnes)
+
+Este proyecto sigue **SDD + TDD**:
+
+1. **Spec primero** — escribir que se va a hacer antes de programar.
+   Specs viven en `.specs/active/<feature>/spec.md`.
+2. **Plan despues** — `.specs/active/<feature>/plan.md`.
+3. **Tasks atomicas** — `.specs/active/<feature>/tasks.md`.
+4. **Tests antes que codigo** — TDD estricto.
+5. **Code review + adversarial review** antes de archivar.
+6. **Archive** — `.specs/archived/<fecha>_<feature>/`.
+
+Hay **una sola feature activa** en `.specs/active/` a la vez.
+
+Para iniciar una nueva feature: pregunta a Claude (o tu IA preferida)
+«vamos a crear una feature nueva», y Arnes orquestara el ciclo.
+
+---
+
+## Convenciones de codigo
+
+### Idioma
+- **Codigo, identificadores, comentarios tecnicos:** ingles.
+- **Specs, docs de negocio, mensajes UX:** castellano.
+
+### Naming
+- **Variables y funciones:** `camelCase`.
+- **Tipos e interfaces:** `PascalCase`.
+- **Constantes top-level:** `SCREAMING_SNAKE_CASE`.
+- **Ficheros React:** `PascalCase.tsx`.
+- **Ficheros utility:** `kebab-case.ts`.
+- **Folders:** `kebab-case`.
+
+### Estructura
+- App Router (`app/`), no Pages Router.
+- Componentes server por defecto. Client solo cuando hace falta (`'use client'`).
+- Co-locacion: componentes especificos de una ruta van en `app/.../_components/`.
+- Componentes compartidos en `components/`.
+- Logica de negocio en `lib/`.
+- Schemas Zod en `lib/<domain>/schema.ts`.
+
+### Imports
+- Imports absolutos con alias `@/` (definido en `tsconfig.json`).
+- Orden: built-in → externas → internas (`@/...`) → relativas (`./..`).
+- Sin comentarios entre imports.
+
+---
+
+## Comandos comunes
+
+```bash
+# Desarrollo
+pnpm dev               # arranca Next.js en local
+
+# Tests
+pnpm test              # vitest watch
+pnpm test --run        # vitest single run
+pnpm test:e2e          # playwright
+
+# Calidad
+pnpm lint              # eslint
+pnpm typecheck         # tsc --noEmit
+pnpm format            # prettier
+
+# Supabase local
+pnpm supabase:start    # docker compose up
+pnpm supabase:reset    # reset DB con migraciones
+pnpm supabase:migrate  # nueva migracion
+
+# Build
+pnpm build             # next build
+pnpm start             # next start (produccion local)
+```
+
+---
+
+## Estructura del proyecto
+
+```
+{{PROJECT_NAME}}/
+├── app/                    # Next.js App Router
+│   ├── (dashboard)/        # Rutas autenticadas
+│   ├── (public)/           # Rutas publicas
+│   ├── api/                # Route handlers
+│   ├── layout.tsx
+│   └── page.tsx
+├── components/             # Componentes compartidos
+├── lib/                    # Logica de negocio + helpers
+│   ├── auth/
+│   ├── supabase/
+│   └── ...
+├── supabase/
+│   ├── migrations/         # SQL migrations
+│   └── seed.sql
+├── e2e/                    # Playwright tests
+├── hooks/                  # Git hooks
+├── .specs/
+│   ├── active/             # Feature en curso
+│   └── archived/           # Features completadas
+├── estado/
+│   ├── implementation-status.md   # Estado actual Arnes
+│   └── operations.jsonl           # Log de operaciones (gitignored)
+├── AGENTS.md               # ESTE FICHERO (source of truth)
+├── CLAUDE.md               # symlink -> AGENTS.md
+├── .codex/instructions.md  # symlink -> ../AGENTS.md
+├── .github/copilot-instructions.md  # symlink -> ../AGENTS.md
+├── GEMINI.md               # symlink -> AGENTS.md
+├── package.json
+└── README.md
+```
+
+---
+
+## Variables de entorno
+
+Todas las env vars viven en `.env.local` (gitignored). Estructura:
+
+```bash
+# Supabase
+NEXT_PUBLIC_SUPABASE_URL=https://xxx.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJh...        # Cliente, ok publicar.
+SUPABASE_SERVICE_ROLE_KEY=eyJh...            # SOLO server. NUNCA cliente.
+
+# Otros
+# (anadir segun necesidad)
+```
+
+`.env.example` (en el repo) tiene la lista de variables necesarias con
+valores placeholder.
+
+---
+
+## Que NO hacer
+
+- **No** usar `npm` o `yarn` en lugar de `pnpm`.
+- **No** modificar este fichero (AGENTS.md) sin discutir con el equipo —
+  son las reglas del proyecto.
+- **No** desactivar RLS «temporalmente». Si necesitas saltarlo en server,
+  usa la `service_role_key` con cuidado en una server action especifica.
+- **No** introducir nuevas dependencias sin justificarlo en una spec o plan.
+- **No** saltar specs «porque es solo un cambio pequeno». Si te lo planteas,
+  desactiva Arnes y usa modo rapido.
+- **No** subir secrets aunque sea «temporal».
+
+---
+
+## Como interactuar con la IA
+
+Cuando trabajes con Claude / Codex / etc. en este proyecto:
+
+1. **Lee este fichero (AGENTS.md) y `docs/` de Arnes** si tienes dudas.
+2. **Sigue el ciclo SDD+TDD** para features nuevas.
+3. **Aproba specs y planes** antes de avanzar.
+4. **Confia en las revisiones** (reviewer + adversarial) antes de archivar.
+5. **Si Arnes te bloquea, no bypassees**: arregla lo que dice.
+
+---
+
+## Mantenedores
+
+- **Owner:** <Tu nombre>
+- **Equipo:** <Equipo>
+
+---
+
+## Version del armazon
+
+Generado por Arnes v0.1.0 el {{DATE}}.
+Para actualizar el armazon: invoca Arnes en modo «mantener».

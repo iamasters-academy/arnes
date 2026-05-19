@@ -1,0 +1,106 @@
+# Code review: {{FEATURE_TITLE}}
+
+**Estado:** in_progress
+**Revisor:** reviewer
+**Fecha:** {{TIMESTAMP}}
+**Diff revisado:** <commits abc123..def456>
+
+---
+
+## Veredicto
+
+<!-- approved / approved_with_warnings / requested_changes / blocked -->
+
+---
+
+## Resumen
+
+<!-- Una frase. Que se revisa, conclusion principal. -->
+
+---
+
+## Findings
+
+### Fidelidad a la spec
+
+<!--
+- [ok] / [info] / [warning] / [error] / [blocker]
+- Ubicacion (fichero:linea)
+- Descripcion
+- Sugerencia concreta (si aplica)
+
+Ejemplo:
+- [ok] El endpoint /api/marketplaces implementa los 3 escenarios documentados.
+- [warning] El campo `seller_id` no se valida contra el formato Amazon. Anadir en schema.ts.
+- [error] El boton "Eliminar" no pide confirmacion. La spec lo requiere.
+-->
+
+-
+
+### Fidelidad al plan
+
+-
+
+### Calidad del codigo
+
+<!--
+- Complejidad (ciclomatica, anidamiento).
+- Duplicacion.
+- Naming consistente.
+- Lineas por fichero/funcion.
+- Codigo muerto.
+-->
+
+-
+
+### Tests
+
+<!--
+- ¿Todos los tests del test-writer pasan?
+- ¿Hay tests para todos los escenarios de spec?
+- ¿Cobertura es razonable?
+- ¿Tests son legibles (AAA, naming claro)?
+-->
+
+-
+
+### Convenciones del proyecto
+
+<!--
+- ¿Usa pnpm (no npm)?
+- ¿Usa app/ router?
+- ¿Usa helpers existentes (auth, db) en lugar de duplicar logica?
+- ¿Naming consistente con el resto del proyecto?
+-->
+
+-
+
+---
+
+## Acciones requeridas para approved
+
+### Blockers (obligatorios)
+- [ ] <Accion 1>
+- [ ] <Accion 2>
+
+### Non-blockers (recomendados)
+- [ ] <Accion 3>
+- [ ] <Accion 4>
+
+---
+
+## Reglas de decision
+
+| Veredicto | Cuando |
+|-----------|--------|
+| **approved** | 0 blockers, 0 errors. Pasa a adversarial. |
+| **approved_with_warnings** | 0 blockers, 0 errors, warnings no criticos. Pasa a adversarial. |
+| **requested_changes** | ≥ 1 error o blocker. Vuelve al code-writer. |
+| **blocked** | ≥ 1 blocker de seguridad evidente. Para todo y avisa. |
+
+---
+
+## Firma
+
+Revisado por:
+Fecha:

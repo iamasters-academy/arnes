@@ -1,0 +1,143 @@
+# {{PROJECT_NAME}}
+
+{{PROJECT_DESCRIPTION}}
+
+Proyecto generado con [Arnes](https://github.com/iamasters-academy/iamasters-os/tree/main/skills/arnes) v0.1.0
+el {{DATE}}.
+
+---
+
+## Stack
+
+- **Frontend:** Next.js (App Router) + React 19 + Tailwind CSS 4
+- **Backend:** Supabase (Auth + DB + Storage + RLS)
+- **Tests:** Vitest (unit/integration) + Playwright (E2E)
+- **Deploy:** Vercel
+- **Gestor:** PNPM
+
+---
+
+## Inicio rapido
+
+```bash
+# 1. Instalar dependencias
+pnpm install
+
+# 2. Copiar .env.example a .env.local y rellenar
+cp .env.example .env.local
+$EDITOR .env.local
+
+# 3. Arrancar Supabase local (requiere Docker)
+pnpm supabase:start
+
+# 4. Arrancar el server de desarrollo
+pnpm dev
+
+# 5. Abrir http://localhost:3000
+```
+
+---
+
+## Comandos
+
+```bash
+pnpm dev               # Server de desarrollo (con Turbo)
+pnpm build             # Build de produccion
+pnpm start             # Server de produccion local
+pnpm test              # Tests unit + integration (watch)
+pnpm test --run        # Tests unit + integration (single run)
+pnpm test:e2e          # Tests E2E con Playwright
+pnpm lint              # Lint
+pnpm typecheck         # Type check
+pnpm format            # Prettier
+```
+
+---
+
+## Trabajar con Arnes
+
+Este proyecto usa **Arnes** para mantener disciplina SDD+TDD.
+
+Cuando quieras anadir una feature:
+
+```
+> Vamos a anadir la feature X.
+```
+
+Arnes te guiara:
+
+1. Entrevista (max 7 preguntas).
+2. Spec en `.specs/active/<feature>/spec.md`.
+3. Plan tecnico.
+4. Tasks atomicas.
+5. Tests primero (rojo).
+6. Codigo (verde).
+7. Code review.
+8. Adversarial review (seguridad, edge cases).
+9. Archive.
+
+No te saltes pasos. Si quieres ir rapido, NO uses Arnes (modo arranque rapido).
+
+---
+
+## Estructura del proyecto
+
+```
+{{PROJECT_NAME}}/
+├── app/                    # Next.js App Router
+├── components/             # Componentes compartidos
+├── lib/                    # Logica de negocio + helpers
+├── supabase/migrations/    # Migraciones SQL
+├── e2e/                    # Playwright tests
+├── hooks/                  # Git hooks (pre-commit)
+├── .specs/                 # Specs Arnes (active + archived)
+├── estado/                 # Estado Arnes (implementation-status, etc.)
+├── AGENTS.md               # Source of truth para todas las IAs
+└── README.md               # Este fichero
+```
+
+---
+
+## Seguridad
+
+- **Secrets nunca en el repo.** El hook pre-commit lo bloquea.
+- **RLS activado** en toda tabla Supabase.
+- **Validacion Zod** en cada endpoint que recibe input.
+- **Headers de seguridad** configurados por defecto.
+
+Si necesitas saltar el pre-commit (no recomendado): `git commit --no-verify`.
+Pero piensatelo dos veces antes.
+
+---
+
+## Despliegue
+
+### Vercel
+
+```bash
+vercel
+```
+
+Vercel detecta Next.js automaticamente. Configura las env vars en el
+dashboard de Vercel (no commitees `.env.local`).
+
+### Supabase
+
+```bash
+supabase link --project-ref <project-ref>
+supabase db push
+```
+
+---
+
+## Que sigue
+
+- [ ] Configurar `.env.local`.
+- [ ] Arrancar Supabase local y verificar que `pnpm dev` funciona.
+- [ ] Anadir tu primera feature con Arnes.
+
+---
+
+## Licencia
+
+<TU_LICENCIA> — ver LICENSE.

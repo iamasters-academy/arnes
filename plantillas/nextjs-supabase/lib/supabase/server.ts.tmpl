@@ -1,0 +1,37 @@
+import { createServerClient } from '@supabase/ssr';
+import { cookies } from 'next/headers';
+
+/**
+ * Cliente Supabase para Server Components, Route Handlers y Server Actions.
+ *
+ * NUNCA usar SUPABASE_SERVICE_ROLE_KEY aqui. Solo NEXT_PUBLIC_SUPABASE_ANON_KEY.
+ * Las RLS policies hacen su trabajo basandose en auth.uid().
+ *
+ * Si necesitas saltar RLS (raro, p.ej. para una server action administrativa),
+ * crea un cliente separado en `lib/supabase/admin.ts` y usalo con cuidado.
+ */
+export async function createSupabaseServerClient() {
+  const cookieStore = await cookies();
+
+  return createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return cookieStore.getAll();
+        },
+        setAll(cookiesToSet) {
+          try {
+            cookiesToSet.forEach(({ name, value, options }) =>
+              cookieStore.set(name, value, options)
+            );
+          } catch {
+            // Set llamado desde Server Component. No es problema si hay
+            // middleware refrescando sesiones.
+          }
+        },
+      },
+    }
+  );
+}

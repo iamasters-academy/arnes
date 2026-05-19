@@ -1,0 +1,165 @@
+# Adversarial review: {{FEATURE_TITLE}}
+
+**Estado:** in_progress
+**Revisor:** adversarial-reviewer
+**Fecha:** {{TIMESTAMP}}
+**Diff revisado:** <commits abc123..def456>
+
+---
+
+## Veredicto
+
+<!-- approved / blocked -->
+
+---
+
+## Resumen
+
+<!-- Una frase. Que se encontro. -->
+
+---
+
+## Hallazgos por severidad
+
+### CRITICAL (bloquea archive)
+
+<!--
+Cada hallazgo lleva:
+- ID (C01, C02, ...)
+- Titulo
+- Ubicacion (fichero:linea)
+- Descripcion
+- Explotacion concreta (como un atacante lo usa)
+- Fix concreto
+
+Plantilla:
+
+#### C01 — <Titulo>
+**Ubicacion:** <fichero:linea>
+**Descripcion:**
+**Explotacion:**
+**Fix:**
+-->
+
+#### C##  —
+
+**Ubicacion:**
+**Descripcion:**
+**Explotacion:**
+**Fix:**
+
+---
+
+### HIGH (bloquea archive)
+
+#### H## —
+
+**Ubicacion:**
+**Descripcion:**
+**Explotacion:**
+**Fix:**
+
+---
+
+### MEDIUM (warnings)
+
+#### M## —
+
+**Ubicacion:**
+**Descripcion:**
+**Fix:**
+
+---
+
+### LOW (mejoras)
+
+#### L## —
+
+**Ubicacion:**
+**Descripcion:**
+**Fix:**
+
+---
+
+## Cobertura OWASP Top 10
+
+<!-- Marcar cuales aplican y por que. -->
+
+- [ ] A01 — Broken Access Control
+- [ ] A02 — Cryptographic Failures
+- [ ] A03 — Injection
+- [ ] A04 — Insecure Design
+- [ ] A05 — Security Misconfiguration
+- [ ] A06 — Vulnerable Components
+- [ ] A07 — Authentication Failures
+- [ ] A08 — Software/Data Integrity Failures
+- [ ] A09 — Logging/Monitoring Failures
+- [ ] A10 — Server-Side Request Forgery
+
+---
+
+## Escenarios no cubiertos
+
+<!--
+Casos que NO estan en spec ni tests pero deberian. Ejemplos:
+
+- ¿Que pasa si la API externa devuelve 503?
+- ¿Que pasa si dos usuarios hacen la misma operacion a la vez?
+- ¿Que pasa si el usuario tiene mas de N items?
+-->
+
+-
+
+---
+
+## Suposiciones implicitas
+
+<!--
+Suposiciones que el codigo hace pero no estan documentadas. Ejemplos:
+
+- El codigo asume que `seller_id` es siempre alfanumerico de 10 chars.
+  Si Amazon lo cambia, falla silenciosamente.
+- El codigo asume que `auth.uid()` nunca es null. Si el middleware falla, peta.
+-->
+
+-
+
+---
+
+## Acciones requeridas
+
+### Bloqueantes (deben resolverse antes de archive)
+- [ ] C01 — <Titulo>
+- [ ] H01 — <Titulo>
+
+### Recomendados (no bloquean)
+- [ ] M01 — <Titulo>
+- [ ] L01 — <Titulo>
+
+### A discutir con el usuario
+- <Pregunta abierta 1>
+- <Pregunta abierta 2>
+
+---
+
+## Reglas de decision
+
+| Veredicto | Cuando |
+|-----------|--------|
+| **approved** | 0 CRITICAL, 0 HIGH. Puede haber MEDIUM/LOW. |
+| **blocked** | ≥ 1 CRITICAL o ≥ 1 HIGH. Vuelve al code-writer. |
+
+---
+
+## La regla de oro
+
+> «Mejor parar 10 minutos que filtrar datos.»
+
+Si dudas si algo es explotable, lo flagged. Mejor falso positivo que filtracion real.
+
+---
+
+## Firma
+
+Revisado por:
+Fecha:

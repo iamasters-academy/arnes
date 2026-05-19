@@ -1,0 +1,97 @@
+# Tasks: {{FEATURE_TITLE}}
+
+**Estado:** draft
+**Autor:** task-writer
+**Fecha:** {{DATE}}
+**Basado en:** plan.md, spec.md
+
+---
+
+## Resumen
+
+<!-- N tasks totales. Tiempo estimado total: X horas. -->
+
+- Total de tasks:
+- Tiempo estimado total:
+
+---
+
+## Tasks
+
+### T01 — <Nombre corto>
+
+**Objetivo:**
+<!-- Una frase. Que se consigue al terminar esta task. -->
+
+**Ficheros:**
+- `<path>` (nuevo / modificado)
+
+**Criterio de aceptacion:**
+- [ ] <Criterio verificable 1>
+- [ ] <Criterio verificable 2>
+
+**Estimacion:** XX min.
+
+**Dependencias:** <T## o «ninguna»>
+
+---
+
+### T02 — <Nombre corto>
+
+**Objetivo:**
+
+**Ficheros:**
+-
+
+**Criterio de aceptacion:**
+- [ ]
+- [ ]
+
+**Estimacion:** XX min.
+
+**Dependencias:**
+
+---
+
+### T03 — <Nombre corto>
+
+**Objetivo:**
+
+**Ficheros:**
+-
+
+**Criterio de aceptacion:**
+- [ ]
+- [ ]
+
+**Estimacion:** XX min.
+
+**Dependencias:**
+
+---
+
+<!-- Anadir mas tasks segun necesidad. -->
+
+---
+
+## Reglas de ejecucion
+
+1. Tests ANTES del codigo. Si una task implementa un endpoint, hay otra task
+   ANTES que escribe los tests del endpoint (en rojo).
+2. Una task ≤ 90 min. Si estimas mas, dividela.
+3. Cada task tiene un fichero principal claro (puede tocar otros).
+4. Orden topologico segun dependencias.
+5. Sin tasks de «revisar» — eso lo hacen `reviewer` y `adversarial-reviewer`
+   despues, no son tasks.
+
+---
+
+## Aprobacion
+
+- [ ] Tasks atomicas (cada una < 90 min).
+- [ ] Criterios de aceptacion verificables.
+- [ ] Dependencias declaradas.
+- [ ] Tests antes del codigo en cada par test-implementacion.
+- [ ] Aprobado para pasar a fase «tests».
+
+Fecha de aprobacion:

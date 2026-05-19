@@ -1,0 +1,154 @@
+# Plan: {{FEATURE_TITLE}}
+
+**Estado:** draft
+**Autor:** planner
+**Fecha:** {{DATE}}
+**Basado en:** spec.md
+**Stack:** {{STACK}}
+
+---
+
+## Arquitectura
+
+<!-- Resumen del flujo: que capas tocamos, en que orden. -->
+
+---
+
+## Capas afectadas
+
+### Frontend
+<!-- Componentes React, rutas Next.js, server actions, etc. -->
+-
+
+### Backend / API
+<!-- Route handlers, server actions, edge functions, etc. -->
+-
+
+### Base de datos
+<!-- Tablas nuevas, columnas, indices, politicas RLS. -->
+-
+
+### Servicios externos
+<!-- APIs de terceros que llamamos. -->
+-
+
+---
+
+## Ficheros nuevos
+
+<!-- Lista exacta. Path completo. -->
+
+- `app/(dashboard)/marketplaces/page.tsx`
+- `app/api/marketplaces/route.ts`
+- `lib/marketplaces/schema.ts`
+- `supabase/migrations/{{DATE}}_create_marketplaces.sql`
+
+---
+
+## Ficheros modificados
+
+<!-- Lista exacta + razon de la modificacion. -->
+
+- `app/layout.tsx` — anadir link al nav.
+- `middleware.ts` — anadir ruta /marketplaces a protected.
+
+---
+
+## Dependencias nuevas
+
+<!--
+Lista con version y motivacion. Solo si NO estan ya en package.json.
+
+Formato:
+- `<paquete>@<version>` — <motivacion>.
+-->
+
+-
+
+---
+
+## Esquema de datos
+
+<!--
+SQL exacto que se va a anadir como migracion.
+TODO: rellenar.
+
+```sql
+-- supabase/migrations/{{DATE}}_<descripcion>.sql
+
+create table public.<nombre> (
+  id uuid primary key default gen_random_uuid(),
+  -- ...
+);
+
+alter table public.<nombre> enable row level security;
+
+create policy "users see own <nombre>"
+  on public.<nombre> for select
+  using (auth.uid() = user_id);
+
+-- ... resto de politicas (insert, update, delete)
+```
+-->
+
+---
+
+## Decisiones arquitectonicas
+
+<!--
+Cada decision con justificacion. Ejemplos:
+
+- **Decision:** server actions (no route handlers) para mutaciones.
+  **Razon:** la spec no requiere acceso desde fuera del frontend; menos boilerplate.
+- **Decision:** RLS con `auth.uid()` en lugar de columna `is_owner` calculada.
+  **Razon:** estandar Supabase, menos riesgo de error.
+-->
+
+-
+
+---
+
+## Riesgos identificados
+
+<!--
+Riesgos con mitigacion. Ejemplos:
+
+- Riesgo: la API de Amazon tiene rate limit.
+  Mitigacion: cache 5 min en KV.
+
+- Riesgo: marketplaces europeos tienen schemas distintos.
+  Mitigacion: tabla `marketplace_metadata` con campo `country_code`.
+-->
+
+-
+
+---
+
+## Orden de implementacion sugerido
+
+<!-- Orden topologico para las tasks. -->
+
+1. Migracion de DB.
+2. Esquemas Zod.
+3. Server actions (read + write).
+4. Componentes UI.
+5. Tests E2E.
+
+---
+
+## Fuera de alcance (heredado de spec)
+
+<!-- Copia textual del "fuera de alcance" de la spec. -->
+
+-
+
+---
+
+## Aprobacion
+
+- [ ] Plan revisado por el usuario (o saltable si confia en el equipo).
+- [ ] Decisiones arquitectonicas justificadas.
+- [ ] Riesgos identificados con mitigacion.
+- [ ] Aprobado para pasar a fase «tasks».
+
+Fecha de aprobacion:
