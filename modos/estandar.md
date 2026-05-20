@@ -246,3 +246,11 @@ algo serio sin complicarse la vida.**
 - `{{PROJECT_NAME}}`, `{{PROJECT_DESCRIPTION}}` — pregunta 1 y 2.
 - `{{FEATURE_NAME}}`, `{{FEATURE_TITLE}}` — derivadas de la pregunta 4.
 - Automaticas: `{{DATE}}`, `{{TIMESTAMP}}`, `{{HOST}}`.
+
+**Protocolo de sesion (obligatorio):** lee
+[`docs/internos/protocolo-sesion.md`](../docs/internos/protocolo-sesion.md)
+antes de ejecutar nada. En resumen:
+- Fija `ARNES_SESSION_ID` y `ARNES_PROJECT_DIR` UNA VEZ al inicio.
+- Orden: acquire-lock → render → atomic.log/promote → setup-multi-ia →
+  **generate-manifest** → git init/commit → release-lock.
+- No cambies de session_id a mitad de flujo.

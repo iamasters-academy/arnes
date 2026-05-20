@@ -120,7 +120,19 @@ Mas stacks (Backend API Node, CLI, Edge, Web publica) llegan en v2.
 
 ## Roadmap
 
-### v0.2.0 — 20 mayo 2026 (release actual)
+### v0.2.1 — 20 mayo 2026 (release actual, patch)
+
+Tras E2E con 5 sub-agentes Claude Haiku en paralelo (5/5 PASA), arreglo
+los 2 bugs y 1 mejora detectados.
+
+- [x] `scripts/generate-manifest.mjs` (genera/verifica/checks sha256 del armazon)
+- [x] Doc canonico `docs/internos/protocolo-sesion.md` (uso de ARNES_SESSION_ID)
+- [x] Los 5 modos referencian el protocolo de sesion
+- [x] `modos/mantener.md` ahora invoca `generate-manifest verify` antes de tocar
+- [x] `modos/mantener.md` ejecuta `setup-multi-ia.sh` al final
+- [x] Bug fixed: `session.mjs release-lock` fallaba en adoptar
+
+### v0.2.0 — 20 mayo 2026
 
 Tras feedback critico de Fernando: la v0.1.1 solo servia al 20% mas
 tecnico. Esta version recorta artefactos para servir al 80% no tecnico

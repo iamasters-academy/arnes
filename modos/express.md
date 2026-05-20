@@ -203,3 +203,11 @@ los otros modos. El usuario eligio Express porque queria ir rapido.
 - `{{PROJECT_NAME}}` — lo que diga el usuario en pregunta 1
 - `{{PROJECT_DESCRIPTION}}` — la frase de pregunta 2
 - `{{DATE}}`, `{{YEAR}}`, `{{HOST}}` — automaticas
+
+**Protocolo de sesion (obligatorio):** lee
+[`docs/internos/protocolo-sesion.md`](../docs/internos/protocolo-sesion.md)
+antes de ejecutar nada. En resumen:
+- Fija `ARNES_SESSION_ID` y `ARNES_PROJECT_DIR` UNA VEZ al inicio.
+- Ejecuta en orden: acquire-lock → render → atomic.log/promote →
+  setup-multi-ia → **generate-manifest** → git init/commit → release-lock.
+- No cambies de session_id a mitad de flujo (rompe el lock).

@@ -7,6 +7,68 @@ y este proyecto sigue [Semantic Versioning](https://semver.org/lang/es/).
 
 ---
 
+## [0.2.1] — 2026-05-20
+
+**Patch release tras validacion E2E de v0.2.0.** Tests con 5 sub-agentes
+Claude Haiku en paralelo (5/5 PASA). Esta release arregla los 2 bugs
+menores y 1 mejora que el adversarial encontro.
+
+### Arreglado
+
+- **Bug: `session.mjs release-lock` fallaba en flujo de adoptar.**
+  Causa: el flujo podia cambiar de session_id a mitad (sub-agente
+  spawned, shell distinta, etc.) y `release-lock` rechazaba la operacion.
+  Solucion: nuevo doc canonico `docs/internos/protocolo-sesion.md` que
+  obliga a fijar `ARNES_SESSION_ID` y `ARNES_PROJECT_DIR` UNA SOLA VEZ
+  al inicio del modo, y a usarlos en TODOS los scripts del flujo.
+  Referenciado en los 5 modos (express, estandar, pro, adoptar, mantener).
+  El comportamiento estricto de `session.mjs` se mantiene (es feature,
+  no bug).
+
+- **`.arnes/manifest.json` no se generaba automaticamente.** Documentado
+  en mantener pero ningun modo lo creaba. Sin manifest, mantener no podia
+  detectar piezas modificadas por el usuario.
+  Solucion: nuevo script `scripts/generate-manifest.mjs` con subcomandos
+  `generate`, `verify`, `check`. Se llama en el paso final de los modos
+  nuevo/adoptar y al principio de mantener (si falta, genera linea base
+  con hashes actuales).
+
+- **`setup-multi-ia.sh` no se ejecutaba en mantener.** Si la skill
+  anrnadia nuevos symlinks (ej. `.cursorrules`), un proyecto antiguo no
+  los recibia al hacer mantener. Anrnadido como paso de `modos/mantener.md`.
+
+### Anrnadido
+
+- `scripts/generate-manifest.mjs` (~200 lineas): genera/verifica/checks
+  el manifest.json con sha256 de cada pieza del armazon.
+- `docs/internos/protocolo-sesion.md` (~120 lineas): contrato de uso de
+  ARNES_SESSION_ID, atomic.mjs, session.mjs, generate-manifest.mjs en
+  los flujos. Solo para Claude, no se muestra al usuario.
+
+### Modificado
+
+- `modos/express.md` — anrnadida seccion «Protocolo de sesion (obligatorio)».
+- `modos/estandar.md` — idem.
+- `modos/pro.md` — idem.
+- `modos/adoptar.md` — idem, con nota explicita sobre el bug fix v0.2.1.
+- `modos/mantener.md` — protocolo + 3 sub-secciones:
+  1. Generar manifest baseline si falta (proyecto pre-v0.2.1).
+  2. Verificar con `generate-manifest verify` antes de tocar.
+  3. Ejecutar `setup-multi-ia.sh` al final.
+
+### Lecciones aprendidas
+
+- **El estricto del session.mjs es feature, no bug.** Cuando el adversarial
+  o un test encuentra una friccion, la primera reaccion no debe ser
+  relajar la garantia. Documentar el uso correcto es mejor que debilitar
+  la seguridad.
+
+- **Cualquier doc que dependa de un fichero generado (manifest) debe
+  garantizar que el fichero se genera.** Sin generate-manifest automatico,
+  toda la logica de mantener era papel mojado.
+
+---
+
 ## [0.2.0] — 2026-05-20
 
 **Reorientacion completa tras feedback critico** de Fernando Montero

@@ -246,3 +246,40 @@ salvo `AGENTS.md`).
 3. Backup SIEMPRE antes de tocar.
 4. Pregunto explicitamente para piezas en Grupo C.
 5. Si la verificacion final falla, rollback automatico.
+
+**Protocolo de sesion (obligatorio):** lee
+[`docs/internos/protocolo-sesion.md`](../docs/internos/protocolo-sesion.md)
+antes de ejecutar nada. En resumen:
+
+- Fija `ARNES_SESSION_ID` y `ARNES_PROJECT_DIR` UNA VEZ al inicio.
+
+- **Si NO existe `.arnes/manifest.json`** (proyecto pre-v0.2.1):
+  genera uno con los hashes actuales como linea base ANTES de tocar nada.
+  No asumas que «sin manifest = todo modificado». Asume que «sin manifest
+  = nada modificado hasta probar lo contrario».
+
+  ```bash
+  node ~/.claude/skills/arnes/scripts/generate-manifest.mjs generate \
+    "$ARNES_PROJECT_DIR" --version "$(cat $ARNES_PROJECT_DIR/.arnes/version)"
+  ```
+
+- **Verificar:**
+  ```bash
+  node ~/.claude/skills/arnes/scripts/generate-manifest.mjs verify "$ARNES_PROJECT_DIR"
+  ```
+  Output: unchanged / modified / missing por fichero. Solo sobrescribir
+  los `unchanged`. Para los `modified`, preguntar al usuario.
+
+- **Setup multi-IA (anrnadido en v0.2.1):** ejecutar `setup-multi-ia.sh`
+  al final, por si la skill anrnadio nuevos symlinks (es idempotente,
+  no rompe los existentes).
+
+  ```bash
+  bash ~/.claude/skills/arnes/scripts/setup-multi-ia.sh "$ARNES_PROJECT_DIR"
+  ```
+
+- **Regenerar manifest** con la nueva version tras actualizar:
+  ```bash
+  node ~/.claude/skills/arnes/scripts/generate-manifest.mjs generate \
+    "$ARNES_PROJECT_DIR" --version 0.2.1
+  ```

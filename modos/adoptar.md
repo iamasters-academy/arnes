@@ -302,3 +302,14 @@ Igual que en `modos/pro.md`:
 - Hay backup obligatorio.
 - Reviso antes lo que ya tienes y lo respeto.
 - El primer commit NO usa `--no-verify` (porque pasa por validaciones reales).
+
+**Protocolo de sesion (obligatorio):** lee
+[`docs/internos/protocolo-sesion.md`](../docs/internos/protocolo-sesion.md)
+antes de ejecutar nada. En resumen:
+- Fija `ARNES_SESSION_ID` y `ARNES_PROJECT_DIR` UNA VEZ al inicio del flujo
+  de adopcion.
+- Orden: backup → acquire-lock → inyectar armazon (sin tocar codigo) →
+  setup-multi-ia → **generate-manifest** → commit → release-lock.
+- **Importante:** este es el bug fixed en v0.2.1 — antes el sub-agente
+  cambiaba session_id durante adoptar, y `release-lock` fallaba. Fijo
+  al inicio y mantenlo en TODA la operacion.

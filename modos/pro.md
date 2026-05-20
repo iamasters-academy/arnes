@@ -383,3 +383,12 @@ experiencia entera.
 
 7. **Si algo no esta seguro al 100%**, paro y pregunto antes de tocar
    el disco.
+
+**Protocolo de sesion (obligatorio):** lee
+[`docs/internos/protocolo-sesion.md`](../docs/internos/protocolo-sesion.md)
+antes de ejecutar nada. En resumen:
+- Fija `ARNES_SESSION_ID` y `ARNES_PROJECT_DIR` UNA VEZ al inicio.
+- Orden: acquire-lock → render → atomic.log/promote → setup-multi-ia →
+  **generate-manifest** → git init/commit → release-lock.
+- En cada feature posterior, las 9 etapas usan el mismo session_id.
+- No cambies de session_id a mitad de flujo.
