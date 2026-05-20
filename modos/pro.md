@@ -1,7 +1,15 @@
-# Modo: empezar un proyecto NUEVO
+# Modo: PRO
 
-Este es el flujo que sigo cuando arrancas algo **desde cero**. Yo te guio,
-tu confirmas cada paso. **No toco tu disco hasta que tu apruebes el plan.**
+Este es el flujo completo de Arnes, con disciplina SDD+TDD entera: 9
+etapas, 6 artefactos por feature, revision adversarial obligatoria.
+
+**Para proyectos serios:** software profesional, proyectos de cliente que
+pagan, productos que aguantaran anros sin equipo grande detras, cualquier
+cosa donde la calidad del codigo importa mas que la velocidad.
+
+Si tu proyecto es una idea de fin de semana o un MVP, **NO uses PRO**.
+Usa [Express](express.md) o [Estandar](estandar.md). PRO es lento a
+proposito.
 
 ---
 
@@ -10,17 +18,21 @@ tu confirmas cada paso. **No toco tu disco hasta que tu apruebes el plan.**
 Para llegar aqui, antes hubo:
 
 1. Tu pediste algo tipo «vamos a crear una app que...».
-2. Yo te pregunte: «¿Modo A (con metodo) o B (rapido)?». Elegiste A.
-3. El detector vio que no existe el proyecto → es modo «nuevo».
+2. Yo te pregunte: «¿Express / Estandar / PRO?». Elegiste PRO.
+3. El detector vio que no existe el proyecto → es modo «nuevo» dentro de PRO.
 
-Si llegaste aqui sin elegir Modo A, **vuelve atras** y elige primero. Las
-reglas Arnes solo se aplican en Modo A.
+Si llegaste aqui sin elegir PRO conscientemente, **vuelve atras** y mira
+si Express o Estandar te encajan mejor. PRO es un compromiso de tiempo
+y rigor que no todo proyecto merece.
 
 ---
 
-## Los 7 pasos, paso a paso
+## Los 7 pasos del scaffold inicial PRO
 
-Lo que viene son los 7 pasos del modo «nuevo». Cada paso:
+Despues del scaffold inicial, cada feature pasa por el ciclo magico
+completo de 9 etapas documentado en
+[`docs/ciclo-magico.md`](../docs/ciclo-magico.md). El scaffold inicial es
+lo que hago la primera vez:
 
 1. Te explico que voy a hacer.
 2. Si tengo que preguntarte algo, te pregunto.
@@ -332,7 +344,7 @@ Cuando renderizo las plantillas, estas variables se rellenan:
 ## Lo que NO hago en este modo
 
 - **No** decido el stack: en v1 siempre es Next.js + Supabase. Si quieres
-  otro, te sugiero usar Modo B (arranque rapido) y montarlo a mano.
+  otro, te sugiero usar Modo Express (arranque rapido) y montarlo a mano.
 - **No** despliego en Vercel automaticamente (tu lo haces despues con `vercel`).
 - **No** creo tu proyecto de Supabase en la nube (lo creas tu en
   supabase.com cuando estes listo).

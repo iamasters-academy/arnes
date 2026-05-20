@@ -103,36 +103,60 @@ Mas stacks (Backend API Node, CLI, Edge, Web publica) llegan en v2.
 
 ## Documentacion
 
+### Para usuarios
+
 - [Manifiesto](docs/arnes.md) — que garantiza Arnes
-- [SDD + TDD](docs/sdd-tdd.md) — la metodologia
+- [Glosario](docs/glosario.md) — traduccion de cualquier termino tecnico
+- [Ciclo magico](docs/ciclo-magico.md) — los 9 pasos del modo PRO
 - [Seguridad](docs/seguridad.md) — reglas inviolables
-- [Atomicidad](docs/atomicidad.md) — rollback automatico
-- [Sesiones](docs/sesiones.md) — lock concurrente y auto-resume
+- [Tutorial primer proyecto](tutorial/PRIMER-PROYECTO.md) — 30 minutos
+
+### Para Claude (internos)
+
+- [docs/internos/atomicidad.md](docs/internos/atomicidad.md) — staging y rollback
+- [docs/internos/sesiones.md](docs/internos/sesiones.md) — lock y auto-resume
 
 ---
 
 ## Roadmap
 
-### v0.1.0 (MVP, este release) — Mayo 2026
-- [x] Gate de activacion (Arnes vs arranque rapido)
-- [x] Detector de modo (nuevo / adoptar / mantener)
-- [x] Documentacion canonica
-- [ ] 6 sub-agentes (spec-writer, planner, task-writer, test-writer, reviewer, adversarial)
-- [ ] Sistema SDD (.specs/ + ciclo completo)
-- [ ] Atomicidad y rollback
-- [ ] Lock concurrente + auto-resume
-- [ ] Hooks pre-commit
-- [ ] Multi-IA via AGENTS.md
-- [ ] 1 plantilla: Next.js + Supabase
-- [ ] Smoke test end-to-end
+### v0.2.0 — 20 mayo 2026 (release actual)
 
-### v0.2.0 (futuro)
+Tras feedback critico de Fernando: la v0.1.1 solo servia al 20% mas
+tecnico. Esta version recorta artefactos para servir al 80% no tecnico
+de IA Masters Academy.
+
+- [x] Plantilla `web-simple` (Next + Tailwind + Vercel, sin Supabase ni tests)
+- [x] Tutorial «primer proyecto en 30 min» con ejemplo de feature rellenada
+- [x] 3 niveles en el gate: Express / Estandar / PRO
+- [x] Modo Express: 2 preguntas, 5 min, monta web-simple sin ceremonia
+- [x] Modo Estandar: 4 pasos, 2 artefactos visibles (spec + tests)
+- [x] Modo PRO: el flujo SDD+TDD completo (renombrado desde modos/nuevo.md)
+- [x] Docs internas reubicadas a `docs/internos/` (no visibles al usuario)
+- [x] CITATION + CHANGELOG + version bump a 0.2.0
+
+### v0.1.1 — 19 mayo 2026
+
+Refactor a lenguaje vibe-coder. Toda la infraestructura tecnica.
+
+- [x] Gate de activacion + detector de modo
+- [x] Documentacion canonica + glosario
+- [x] 6 roles consolidados en `docs/ciclo-magico.md`
+- [x] Sistema SDD (.specs/, plantillas)
+- [x] Atomicidad y rollback (`scripts/atomic.mjs`)
+- [x] Lock concurrente + auto-resume (`scripts/session.mjs`)
+- [x] Sustitucion de variables (`scripts/render-template.mjs`)
+- [x] Hooks pre-commit, multi-IA, plantilla Next.js+Supabase
+- [x] Smoke tests: E2E (43) + estructural (64)
+
+### v0.3.0 (futuro)
+
 - Catalogo firmado de skills auxiliares con hash + HMAC
-- 4 plantillas adicionales (Web publica, Backend API, CLI, Edge)
+- 3 plantillas mas (Backend API Node, CLI, Edge service)
 - Suite interna de meta-tests
-- 21 fases formalizadas como artefactos auditables
 - Compatibilidad Windows
-- Integracion explicita con Sinapsis (instincts especificos para Arnes)
+- Integracion explicita con Sinapsis (instincts especificos)
+- Flujo de upgrade automatico Express → Estandar → PRO
 
 ---
 

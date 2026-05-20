@@ -1,0 +1,66 @@
+# {{PROJECT_NAME}}
+
+{{PROJECT_DESCRIPTION}}
+
+Web simple generada con Arnes Modo Express el {{DATE}}.
+Stack minimo: Next.js + Tailwind + Vercel. Sin base de datos, sin tests.
+
+---
+
+## Arrancar en local
+
+```bash
+pnpm install
+pnpm dev
+```
+
+Abre http://localhost:3000 y ya esta.
+
+---
+
+## Publicar en Vercel (gratis)
+
+1. Sube este proyecto a un repo de GitHub (privado o publico).
+2. Entra en https://vercel.com, conecta tu GitHub.
+3. Selecciona el repo. Vercel detecta Next.js automaticamente.
+4. Pulsa «Deploy». En 1-2 min tu web esta online.
+
+No necesitas configurar nada mas: Vercel y Next.js se entienden solos.
+
+---
+
+## Estructura
+
+```
+{{PROJECT_NAME}}/
+├── app/
+│   ├── layout.tsx       # estructura comun de todas las paginas
+│   ├── page.tsx         # la pagina principal (modificala a tu gusto)
+│   └── globals.css      # estilos globales con Tailwind
+├── package.json
+├── tsconfig.json
+├── next.config.ts
+└── README.md            # este fichero
+```
+
+---
+
+## Anrnadir cosas
+
+Cuando quieras anrnadir:
+
+- **Otra pagina**: crea `app/sobre/page.tsx`. Va automaticamente a la URL `/sobre`.
+- **Imagenes**: ponlas en `public/` y referencias con `/imagen.jpg`.
+- **Login de usuarios o base de datos**: hablale a Arnes y dile «quiero anrnadir
+  login y base de datos a este proyecto». Te guia para upgradear a Supabase.
+- **Formularios**: igual, pidele a Arnes «quiero anrnadir un formulario de contacto».
+
+---
+
+## Cuando te quedes pequenro
+
+Si el proyecto crece (login, datos persistentes, pagos, multi-usuario),
+Arnes te ayuda a migrar a la plantilla completa (Next + Supabase).
+Cuando llegue ese momento, dile: «vamos a anrnadir base de datos» y te lleva.
+
+Por ahora, mantente simple. **No anrnadas complejidad que no necesitas.**

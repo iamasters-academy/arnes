@@ -290,7 +290,7 @@ Supabase. Solo se anrnade encima.
 
 ## Para Claude (instrucciones internas)
 
-Igual que en `modos/nuevo.md`:
+Igual que en `modos/pro.md`:
 
 1. Cada paso empieza explicando que voy a hacer.
 2. Espero confirmacion explicita en los puntos clave (auditoria, conflictos).

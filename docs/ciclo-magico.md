@@ -379,5 +379,5 @@ Si la revision dura encontro un CRITICAL, no archivo.
 
 **Sin atajos.** Es lo que diferencia Arnes de vibe-coding salvaje.
 
-Si quieres atajos, usa Modo B (arranque rapido) — es legitimo y a veces es
-lo correcto. Pero si activaste Modo A, hacemos las cosas bien.
+Si quieres atajos, usa Modo Express o Modo Estandar — es legitimo y a
+veces es lo correcto. Pero si activaste Modo PRO, hacemos las cosas bien.

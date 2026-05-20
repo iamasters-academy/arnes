@@ -7,7 +7,113 @@ y este proyecto sigue [Semantic Versioning](https://semver.org/lang/es/).
 
 ---
 
-## [0.1.0] — 2026-05-19
+## [0.2.0] — 2026-05-20
+
+**Reorientacion completa tras feedback critico** de Fernando Montero
+(co-mantenedor, concepto original fs-scaffold). Diagnostico: la v0.1.1
+servia al 20% mas tecnico de la comunidad. Para los 1.000+ vibe-coders no
+tecnicos de IA Masters Academy, hacia falta recortar artefactos
+estructuralmente, no solo traducir el lenguaje.
+
+### Cambios mayores
+
+**Gate de 2 niveles → 3 niveles:**
+- Modo A/B (binario) → Express / Estandar / PRO (gradual).
+- Modo B vacio (skill se autoapagaba el 80% del tiempo) eliminado y
+  reemplazado por Modo Express con plantilla rapida real.
+
+**Plantillas:**
+- Anrnadida `plantillas/web-simple/` (Next + Tailwind + Vercel, sin
+  Supabase, sin tests, sin RLS): es la primera plantilla que se ofrece.
+- `plantillas/nextjs-supabase/` (la pesada) pasa a ser opcional para
+  Estandar y default para PRO.
+
+**Modos de scaffold:**
+- `modos/express.md` (NUEVO) — 3 pasos, 5 min, plantilla web-simple,
+  cero artefactos.
+- `modos/estandar.md` (NUEVO) — 4 pasos, 20-30 min, plantilla nextjs-supabase,
+  2 artefactos visibles (spec + tests). Esconde atomicidad, lock, multi-IA
+  y AGENTS.md del usuario.
+- `modos/pro.md` (renombrado desde `modos/nuevo.md`) — flujo completo
+  SDD+TDD con 9 etapas y 6 artefactos. Sin cambios estructurales.
+
+**Documentacion:**
+- Anrnadido `tutorial/PRIMER-PROYECTO.md` — guia de 30 minutos para tu
+  primera web online, paso a paso, sin asumir conocimientos previos.
+- Anrnadido `tutorial/ejemplo-spec-rellena/landing-personal/` — ejemplo
+  de feature completa (spec + tests + codigo resultado) para que el
+  usuario vea como se ve un proyecto «en serio».
+- `docs/atomicidad.md` y `docs/sesiones.md` se mueven a `docs/internos/`.
+  Son fontaneria tecnica: el usuario no las necesita ver. Solo Claude las
+  consulta para operar.
+
+**Roadmap del README:**
+- Reescrito por completo. La v0.1.1 ahora se marca correctamente como
+  «entregada» (antes tenia casillas `[ ]` que contradecian al CHANGELOG).
+
+### Anrnadido
+
+- `plantillas/web-simple/` con 7 ficheros .tmpl (package.json, tsconfig,
+  next.config, .gitignore, README, app/layout, app/page, app/globals.css).
+- `modos/express.md` con flujo de 3 pasos.
+- `modos/estandar.md` con flujo de 4 pasos y 2 artefactos.
+- `tutorial/PRIMER-PROYECTO.md` (~250 lineas) — tutorial completo paso
+  a paso para no-tecnicos, con captura de cada decision.
+- `tutorial/ejemplo-spec-rellena/landing-personal/` — spec.md, tests.md
+  y codigo-resultado.tsx de una feature de ejemplo realista.
+- `docs/internos/README.md` explicando por que estos docs no se muestran
+  al usuario.
+
+### Modificado
+
+- `SKILL.md` — gate de 3 niveles, mas conciso (no enumera reglas internas
+  exhaustivamente), referencias actualizadas a `docs/internos/`.
+- `modos/pro.md` — renombrado desde `modos/nuevo.md`. Header reescrito
+  para reflejar que es el modo riguroso (no «el modo nuevo»).
+- `modos/adoptar.md` — actualizado: referencia `modos/pro.md` en lugar
+  de `modos/nuevo.md`.
+- `docs/ciclo-magico.md` — quitadas las referencias a «Modo A/B»,
+  reemplazadas por «Modo Express / Estandar / PRO».
+- `README.md` — Roadmap reescrito: v0.1.1 como release completo, v0.2.0
+  como release en marcha tras feedback, v0.3.0 para siguientes ideas.
+
+### Movido
+
+- `docs/atomicidad.md` → `docs/internos/atomicidad.md`.
+- `docs/sesiones.md` → `docs/internos/sesiones.md`.
+
+### Por que estos cambios (feedback Fernando, 20 mayo)
+
+1. **README vs CHANGELOG contradictorios:** un alumno leyendo el README
+   veria casillas `[ ]` que decian que ni siquiera estaban entregados
+   sub-agentes, atomicidad, hooks. El CHANGELOG decia lo contrario.
+   Si el repo se publica asi, parece roto. Arreglado.
+
+2. **Modo B vacio:** «en cuanto el vibe-coder elige B, la skill se
+   apaga». 80% de los casos. La skill no aporta valor en la mayoria de
+   sus invocaciones. Hecho Modo Express con plantilla real.
+
+3. **SDD heavy traducido sigue siendo SDD heavy:** 9 etapas, 6 roles,
+   6 artefactos por feature. La adaptacion correcta no era traducir, era
+   recortar. Creado Modo Estandar con 4 pasos y 2 artefactos.
+
+4. **Plantilla mas cara como unica opcion:** Next+Supabase+Playwright+RLS+
+   migrations era artilleria pesada para alguien que aun no ha
+   desplegado nada. Anrnadida web-simple, deja Supabase para cuando se
+   pide persistencia.
+
+5. **Falta tutorial:** abrir el repo sin un ejemplo concreto = abandono
+   inmediato. Anrnadido tutorial + ejemplo rellenado.
+
+### Aprendizaje canonico para v0.3+
+
+«Traducir no es recortar.» Para audiencias no tecnicas, la simplificacion
+real es **menos artefactos**, **menos etapas**, **menos conceptos
+visibles**. El idioma llano sin recorte sigue siendo abrumador.
+
+---
+
+## [0.1.1] — 2026-05-19
 
 ### Anadido
 
@@ -115,7 +221,7 @@ y este proyecto sigue [Semantic Versioning](https://semver.org/lang/es/).
 
 ---
 
-## Pendiente para v0.2.0
+## Pendiente para v0.3.0
 
 - 4 plantillas adicionales (Web publica, Backend API Node, CLI, Edge service).
 - Catalogo firmado de skills auxiliares (HMAC).

@@ -1,0 +1,27 @@
+export default function HomePage() {
+  return (
+    <main className="flex min-h-screen flex-col items-center justify-center p-8 bg-gradient-to-br from-slate-50 to-slate-100">
+      <div className="max-w-2xl text-center space-y-6">
+        <h1 className="text-5xl font-bold tracking-tight text-slate-900">
+          {{PROJECT_NAME}}
+        </h1>
+        <p className="text-xl text-slate-600">
+          {{PROJECT_DESCRIPTION}}
+        </p>
+        <div className="pt-8 space-y-3 text-sm text-slate-500">
+          <p>
+            Edita <code className="bg-slate-200 px-2 py-1 rounded">app/page.tsx</code>
+            {' '}para cambiar esto.
+          </p>
+          <p>
+            Cuando lo tengas listo, sube a Vercel desde
+            {' '}<a href="https://vercel.com" className="text-blue-600 underline">
+              vercel.com
+            </a>
+            {' '}y tu web esta online en 2 minutos.
+          </p>
+        </div>
+      </div>
+    </main>
+  );
+}

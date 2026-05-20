@@ -70,10 +70,18 @@ check "CODEOWNERS" "test -f '$SKILL_DIR/CODEOWNERS'"
 echo ""
 
 # ─── 3. Docs canonicas ────────────────────────────────────────────
-echo "3. Docs canonicas (6 incluyendo glosario y ciclo-magico)"
-for doc in arnes.md seguridad.md atomicidad.md sesiones.md glosario.md ciclo-magico.md; do
+echo "3. Docs canonicas (visibles al usuario)"
+for doc in arnes.md seguridad.md glosario.md ciclo-magico.md; do
   check "docs/$doc" "test -f '$SKILL_DIR/docs/$doc'"
 done
+echo ""
+
+echo "3b. Docs internos (Claude only, NO visibles al usuario)"
+check "docs/internos/README.md" "test -f '$SKILL_DIR/docs/internos/README.md'"
+check "docs/internos/atomicidad.md" "test -f '$SKILL_DIR/docs/internos/atomicidad.md'"
+check "docs/internos/sesiones.md" "test -f '$SKILL_DIR/docs/internos/sesiones.md'"
+check "docs/atomicidad.md NO existe en raiz (se movio)" "! test -f '$SKILL_DIR/docs/atomicidad.md'"
+check "docs/sesiones.md NO existe en raiz (se movio)" "! test -f '$SKILL_DIR/docs/sesiones.md'"
 echo ""
 
 # ─── 4. Sub-agentes consolidados ──────────────────────────────
@@ -83,9 +91,26 @@ check "ciclo-magico.md menciona los 6 roles" "grep -qE 'preguntador|escritor|arq
 echo ""
 
 # ─── 5. Modos ─────────────────────────────────────────────────────
-echo "5. Modos (3)"
-for m in nuevo adoptar mantener; do
+echo "5. Modos (5 en v0.2.0)"
+for m in express estandar pro adoptar mantener; do
   check "modos/$m.md" "test -f '$SKILL_DIR/modos/$m.md'"
+done
+check "modos/nuevo.md NO existe (se renombro a pro.md)" "! test -f '$SKILL_DIR/modos/nuevo.md'"
+echo ""
+
+echo "5b. Tutorial (v0.2.0)"
+check "tutorial/PRIMER-PROYECTO.md" "test -f '$SKILL_DIR/tutorial/PRIMER-PROYECTO.md'"
+check "tutorial/ejemplo-spec-rellena/landing-personal/spec.md" \
+  "test -f '$SKILL_DIR/tutorial/ejemplo-spec-rellena/landing-personal/spec.md'"
+check "tutorial/ejemplo-spec-rellena/landing-personal/tests.md" \
+  "test -f '$SKILL_DIR/tutorial/ejemplo-spec-rellena/landing-personal/tests.md'"
+check "tutorial/ejemplo-spec-rellena/landing-personal/codigo-resultado.tsx" \
+  "test -f '$SKILL_DIR/tutorial/ejemplo-spec-rellena/landing-personal/codigo-resultado.tsx'"
+echo ""
+
+echo "5c. Plantilla web-simple (v0.2.0)"
+for f in package.json tsconfig.json next.config.ts .gitignore README.md app/layout.tsx app/page.tsx app/globals.css; do
+  check "plantillas/web-simple/$f.tmpl" "test -f '$SKILL_DIR/plantillas/web-simple/$f.tmpl'"
 done
 echo ""
 
