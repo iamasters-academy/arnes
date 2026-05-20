@@ -7,6 +7,65 @@ y este proyecto sigue [Semantic Versioning](https://semver.org/lang/es/).
 
 ---
 
+## [0.2.3] — 2026-05-20
+
+**Patch release tras nitpick de Clau** (asistente de Fernando) sobre
+v0.2.2. La auditoria de v0.2.2 sobre rutas hardcoded fue exhaustiva pero
+quedaron 6 sitios con la version literal `0.2.1` desfasada, incluyendo
+**uno funcional critico** que la audit no detecto: el `DEFAULT_VERSION`
+hardcoded en `scripts/generate-manifest.mjs`.
+
+### Arreglado
+
+**Critico funcional — `generate-manifest.mjs` ya no hardcodea version.**
+
+Antes: `const DEFAULT_VERSION = '0.2.1';`. Si alguien invocaba
+`generate-manifest generate <dir>` sin pasar `--version`, el manifest
+salia con `"version": "0.2.1"` aunque ya estuvieramos en 0.2.2+.
+
+Ahora: nueva funcion `resolveVersion(explicit, skillDir)` con prioridad:
+1. `--version` pasado por CLI.
+2. `$ARNES_VERSION` (env).
+3. Lectura de `<skill-dir>/.version` (fuente de verdad — autoresolutivo).
+4. Fallback `"unknown"` con aviso a stderr si nada lo resuelve.
+
+Probado: los 3 modos de resolucion funcionan (lee .version, CLI override,
+env override).
+
+**Cosmetico — docs ya no hardcodean version en ejemplos.**
+
+- `modos/mantener.md:284` decia `--version 0.2.1` literal → reemplazado
+  por comando sin `--version` (el script lo resuelve solo).
+- `docs/internos/protocolo-sesion.md:115` igual.
+
+Ambos sitios ahora explican: «no hardcodees, el script lee .version».
+
+**Cosmetico — docstrings y etiquetas.**
+
+- `generate-manifest.mjs` docstring header: ejemplo `"version": "0.2.1"`
+  → comentario explicando que se lee de .version.
+- `generate-manifest.mjs` docstring help: `default: 0.2.1` → texto
+  describiendo el orden de resolucion (CLI > env > .version > fallback).
+- `smoke-test.sh:140` etiqueta `(v0.2.1)` quitada (ya no aplica).
+
+### Anrnadido
+
+- Check nuevo en smoke-test: «generate-manifest.mjs lee .version (no
+  hardcoded)». Falla si alguien re-introduce un `const DEFAULT_VERSION = 'X.Y.Z'`.
+
+### Leccion canonica
+
+«Cuando arreglas N sitios con la misma version literal, audita tambien
+los **ejemplos en docs/help/comments**. Mejor todavia: haz que el codigo
+lea de una sola fuente de verdad (`.version`) y los docs no necesitaran
+actualizarse cada release.»
+
+La auditoria de v0.2.2 hizo 6 grep checks limpios, pero ninguno fue
+`grep -rn "0\.2\.[01]" --include="*.mjs"`. Esto cierra ese hueco con
+el check del smoke-test.
+
+---
+
 ## [0.2.2] — 2026-05-20
 
 **Patch release tras feedback de Fernando sobre v0.2.1.** Tres areas a

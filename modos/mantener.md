@@ -278,8 +278,12 @@ antes de ejecutar nada. En resumen:
   bash $ARNES_SKILL_DIR/scripts/setup-multi-ia.sh "$ARNES_PROJECT_DIR"
   ```
 
-- **Regenerar manifest** con la nueva version tras actualizar:
+- **Regenerar manifest** con la nueva version tras actualizar.
+  No hardcodees la version: el script lee `.version` de la skill por
+  defecto, asi que basta con:
   ```bash
   node $ARNES_SKILL_DIR/scripts/generate-manifest.mjs generate \
-    "$ARNES_PROJECT_DIR" --version 0.2.1
+    "$ARNES_PROJECT_DIR"
   ```
+  (Solo pasa `--version <ver>` si quieres forzar otra version distinta
+  a la actual de la skill — caso raro.)

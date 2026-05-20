@@ -1,4 +1,4 @@
-# Arnes — v0.2.2
+# Arnes — v0.2.3
 
 Skill de Claude Code que ayuda a vibe-coders no tecnicos a arrancar y
 mantener proyectos de software paso a paso, sin que la IA se descontrole.
@@ -164,7 +164,19 @@ mano. Mas plantillas (Backend API Node, CLI, Edge) llegan en v0.3.
 
 ## Roadmap
 
-### v0.2.2 — 20 mayo 2026 (release actual, patch)
+### v0.2.3 — 20 mayo 2026 (release actual, patch)
+
+Tras nitpick de Clau (asistente de Fer) sobre v0.2.2. La audit del v0.2.2
+sobre rutas era exhaustiva pero quedaron 6 sitios con la version literal
+`0.2.1` desfasada, incluyendo un `DEFAULT_VERSION = '0.2.1'` en
+`generate-manifest.mjs` (funcional, no cosmetico).
+
+- [x] `generate-manifest.mjs` resuelve version: CLI > env > `.version` > fallback
+- [x] Docs (`modos/mantener.md`, `protocolo-sesion.md`) ya no hardcodean version
+- [x] Docstrings y help del script actualizados
+- [x] Check nuevo en smoke-test: detecta si alguien reintroduce `DEFAULT_VERSION`
+
+### v0.2.2 — 20 mayo 2026 (patch)
 
 Tras feedback de Fernando sobre v0.2.1. Limpia README, rutas hardcoded y
 versiones obsoletas.

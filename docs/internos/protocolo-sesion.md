@@ -108,11 +108,11 @@ node $ARNES_SKILL_DIR/scripts/generate-manifest.mjs verify "$ARNES_PROJECT_DIR"
 # Solo sobrescribir los unchanged. Para los modified, preguntar al usuario.
 ```
 
-Tras actualizar, regenerar el manifest con la nueva version:
+Tras actualizar, regenerar el manifest. **No hardcodear la version** —
+el script lee `$ARNES_SKILL_DIR/.version` por defecto, asi que basta:
 
 ```bash
-node $ARNES_SKILL_DIR/scripts/generate-manifest.mjs generate "$ARNES_PROJECT_DIR" \
-  --version 0.2.1
+node $ARNES_SKILL_DIR/scripts/generate-manifest.mjs generate "$ARNES_PROJECT_DIR"
 ```
 
 ---

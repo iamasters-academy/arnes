@@ -11,25 +11,24 @@
  *   generate-manifest.mjs verify <project-dir>            # compara hashes actuales vs manifest
  *   generate-manifest.mjs check <project-dir> <file>      # ¿el usuario modifico este fichero?
  *
+ * Resolucion de la version (en orden):
+ *   1. --version pasado por CLI
+ *   2. $ARNES_VERSION (env)
+ *   3. Lectura de `<skill-dir>/.version` (la fuente de verdad)
+ *   4. Fallback hardcoded (solo si el .version no se puede leer)
+ *
  * Variables de entorno:
- *   ARNES_VERSION         Version a guardar (default: 0.2.1)
+ *   ARNES_VERSION         Version a guardar (override puntual)
  *   ARNES_SKILL_DIR       Path a la skill (default: ~/.claude/skills/arnes)
  *
- * Formato del manifest:
+ * Formato del manifest (ejemplo con version actual leida de .version):
  *
  * {
- *   "version": "0.2.1",
+ *   "version": "<leida de .version>",
  *   "installed_at": "2026-05-20T15:34:12Z",
- *   "skill_origin": "~/.claude/skills/arnes",
+ *   "skill_origin": "<path a la skill>",
  *   "files": {
- *     "AGENTS.md": {
- *       "sha256_at_install": "abc...",
- *       "tmpl_origin": "armazon-comun/AGENTS.md.tmpl"
- *     },
- *     "hooks/scan-secrets.mjs": {
- *       "sha256_at_install": "def...",
- *       "tmpl_origin": "armazon-comun/hooks/scan-secrets.mjs"
- *     },
+ *     "AGENTS.md": { "sha256_at_install": "abc...", "tmpl_origin": "..." },
  *     ...
  *   }
  * }
@@ -38,13 +37,31 @@
  */
 
 import { promises as fs } from 'node:fs';
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import os from 'node:os';
 
 const DEFAULT_SKILL_DIR = path.join(os.homedir(), '.claude', 'skills', 'arnes');
-const DEFAULT_VERSION = '0.2.1';
+
+// Fallback solo si no podemos leer .version desde la skill — no debe ocurrir
+// en una instalacion correcta. Mantenido como ultimo recurso defensivo.
+const HARDCODED_FALLBACK_VERSION = 'unknown';
+
+/**
+ * Resuelve la version a usar para el manifest.
+ * Prioridad: explicit > env > .version del skill-dir > fallback.
+ */
+function resolveVersion(explicitVersion, skillDir) {
+  if (explicitVersion) return explicitVersion;
+  if (process.env.ARNES_VERSION) return process.env.ARNES_VERSION;
+  try {
+    const versionFile = path.join(skillDir, '.version');
+    return readFileSync(versionFile, 'utf8').trim();
+  } catch {
+    return HARDCODED_FALLBACK_VERSION;
+  }
+}
 
 // Lista de ficheros canonicos del armazon que se trackean.
 // Si el usuario los modifica, mantener pregunta antes de sobrescribir.
@@ -116,8 +133,12 @@ async function cmdGenerate(projectDir, opts = {}) {
     process.exit(1);
   }
 
-  const version = opts.version || process.env.ARNES_VERSION || DEFAULT_VERSION;
   const skillDir = opts.armazon || process.env.ARNES_SKILL_DIR || DEFAULT_SKILL_DIR;
+  const version = resolveVersion(opts.version, skillDir);
+  if (version === HARDCODED_FALLBACK_VERSION) {
+    console.error(`AVISO: no se pudo leer ${skillDir}/.version. Usando "${HARDCODED_FALLBACK_VERSION}".`);
+    console.error('       Pasa --version <ver> o exporta ARNES_VERSION para evitarlo.');
+  }
 
   const manifest = {
     version,
@@ -270,7 +291,8 @@ Comandos:
               Imprime el estado de un fichero: unchanged / modified / missing / untracked.
 
 Variables de entorno:
-  ARNES_VERSION       Version (default: ${DEFAULT_VERSION})
+  ARNES_VERSION       Version a usar (override). Si no se pasa,
+                      se lee de \`<skill-dir>/.version\`.
   ARNES_SKILL_DIR     Path skill (default: ${DEFAULT_SKILL_DIR})
 
 Ejemplos:
