@@ -1,10 +1,11 @@
-# Arnes — v0.2.3
+# Arnes — v0.2.4
 
 Skill de Claude Code que ayuda a vibe-coders no tecnicos a arrancar y
 mantener proyectos de software paso a paso, sin que la IA se descontrole.
 
 Basada en el trabajo de Fernando Montero (`fs-scaffold`), adaptada para la
-comunidad IA Masters Academy. **Skill opt-in en IA Masters OS.**
+comunidad IA Masters Academy. **Skill opt-in en IA Masters OS.** Repo
+publico bajo licencia MIT.
 
 ---
 
@@ -164,7 +165,22 @@ mano. Mas plantillas (Backend API Node, CLI, Edge) llegan en v0.3.
 
 ## Roadmap
 
-### v0.2.3 — 20 mayo 2026 (release actual, patch)
+### v0.2.4 — 20 mayo 2026 (release actual, doc patch)
+
+Tras hacer el repo publico para integrar la skill en iAmasters OS, hay
+que sincronizar la documentacion para que no afirme «privado».
+
+- [x] README cabecera: bump v0.2.3 → v0.2.4
+- [x] README cuerpo: «Repo publico bajo licencia MIT» (antes no se decia nada)
+- [x] SKILL.md pie: «Repo: ... (publico, MIT)» en lugar de «(privado)»
+- [x] `.version` actualizado a 0.2.4
+- [x] CITATION.cff bump `version: 0.2.4`
+- [x] CHANGELOG entrada v0.2.4
+
+Sin cambios funcionales. Sin cambios de scope. Los 139 tests siguen
+pasando porque no se toca codigo, solo documentacion.
+
+### v0.2.3 — 20 mayo 2026 (patch)
 
 Tras nitpick de Clau (asistente de Fer) sobre v0.2.2. La audit del v0.2.2
 sobre rutas era exhaustiva pero quedaron 6 sitios con la version literal

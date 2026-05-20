@@ -7,6 +7,39 @@ y este proyecto sigue [Semantic Versioning](https://semver.org/lang/es/).
 
 ---
 
+## [0.2.4] — 2026-05-20
+
+**Doc patch tras hacer el repo publico** para integrarlo como skill opt-in
+en iAmasters OS. La v0.2.3 afirmaba «(privado)» en README y SKILL.md; al
+hacer el repo publico esos textos quedaban desfasados. Esta release los
+sincroniza sin tocar codigo.
+
+### Arreglado
+
+- `README.md` cabecera: bump `v0.2.3` → `v0.2.4`.
+- `README.md` cuerpo (linea 7): anrnade «Repo publico bajo licencia MIT».
+- `README.md` seccion Roadmap: entrada v0.2.4 anrnadida arriba; v0.2.3
+  reetiquetada como «(patch)» en lugar de «(release actual, patch)».
+- `SKILL.md` pie (linea 186): «Repo: ... (publico, MIT)» en lugar de
+  «(privado)».
+- `.version`: `0.2.3` → `0.2.4`.
+- `CITATION.cff`: bump `version: 0.2.4`.
+
+### Sin cambios funcionales
+
+Cero cambios en codigo, scripts, modos, plantillas o tests. Los 139 tests
+(96 estructurales + 43 E2E) siguen pasando porque no se ha tocado nada
+ejecutable. La validacion con 5 sub-agentes Haiku en paralelo de v0.2.3
+sigue siendo valida para v0.2.4.
+
+### Contexto
+
+Esta release acompanra la integracion de la skill como opt-in en
+`iamasters-academy/iamasters-os` v0.8.0, siguiendo el patron «vendor +
+_optional + /install-skill» que el OS ya usa para la skill `cognito`.
+
+---
+
 ## [0.2.3] — 2026-05-20
 
 **Patch release tras nitpick de Clau** (asistente de Fernando) sobre

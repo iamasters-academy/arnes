@@ -178,8 +178,8 @@ en la comunidad.
 
 ## Version
 
-**v0.2.3** — 20 mayo 2026
+**v0.2.4** — 20 mayo 2026
 **Mantenido por:** IA Masters Academy
 **Concepto original:** Fernando Montero (Cafe Camaleonico, 18-may-2026)
 **Adaptacion:** Angel Aparicio
-**Repo:** https://github.com/iamasters-academy/arnes (privado)
+**Repo:** https://github.com/iamasters-academy/arnes (publico, MIT)
