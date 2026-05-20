@@ -31,7 +31,7 @@ preguntar antes de actuar.
 Leo:
 ```bash
 INSTALLED=$(cat .arnes/version)        # version instalada en tu proyecto
-SKILL=$(cat ~/.claude/skills/arnes/.version 2>/dev/null || echo "0.1.0")
+SKILL=$(cat $ARNES_SKILL_DIR/.version 2>/dev/null || echo "0.2.2")
 ```
 
 Comparo cada pieza del armazon-comun con la que vino instalada.
@@ -212,8 +212,8 @@ Para detectar piezas que modificaste, llevo este registro en
 
 ```json
 {
-  "version": "0.1.0",
-  "installed_at": "2026-05-19T20:34:12Z",
+  "version": "0.2.2",
+  "installed_at": "2026-05-20T13:34:12Z",
   "files": {
     "AGENTS.md": {
       "sha256_at_install": "abc...",
@@ -259,13 +259,13 @@ antes de ejecutar nada. En resumen:
   = nada modificado hasta probar lo contrario».
 
   ```bash
-  node ~/.claude/skills/arnes/scripts/generate-manifest.mjs generate \
+  node $ARNES_SKILL_DIR/scripts/generate-manifest.mjs generate \
     "$ARNES_PROJECT_DIR" --version "$(cat $ARNES_PROJECT_DIR/.arnes/version)"
   ```
 
 - **Verificar:**
   ```bash
-  node ~/.claude/skills/arnes/scripts/generate-manifest.mjs verify "$ARNES_PROJECT_DIR"
+  node $ARNES_SKILL_DIR/scripts/generate-manifest.mjs verify "$ARNES_PROJECT_DIR"
   ```
   Output: unchanged / modified / missing por fichero. Solo sobrescribir
   los `unchanged`. Para los `modified`, preguntar al usuario.
@@ -275,11 +275,11 @@ antes de ejecutar nada. En resumen:
   no rompe los existentes).
 
   ```bash
-  bash ~/.claude/skills/arnes/scripts/setup-multi-ia.sh "$ARNES_PROJECT_DIR"
+  bash $ARNES_SKILL_DIR/scripts/setup-multi-ia.sh "$ARNES_PROJECT_DIR"
   ```
 
 - **Regenerar manifest** con la nueva version tras actualizar:
   ```bash
-  node ~/.claude/skills/arnes/scripts/generate-manifest.mjs generate \
+  node $ARNES_SKILL_DIR/scripts/generate-manifest.mjs generate \
     "$ARNES_PROJECT_DIR" --version 0.2.1
   ```

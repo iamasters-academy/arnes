@@ -146,7 +146,8 @@ Voy pieza a pieza, respetando lo que ya tienes:
 - Marcador para que la proxima vez sepa que tu proyecto ya tiene Arnes:
   ```bash
   mkdir -p .arnes
-  echo "0.1.0" > .arnes/version
+  # Leer la version actual de la skill (default 0.2.2 si no se puede leer)
+  echo "$(cat $ARNES_SKILL_DIR/.version 2>/dev/null || echo 0.2.2)" > .arnes/version
   ```
 
 **4.8. Pre-commit hook activo**
@@ -188,7 +189,7 @@ Si algo falla:
 ```bash
 git add AGENTS.md CLAUDE.md GEMINI.md .codex .github .cursorrules \
   hooks/ .specs/ estado/ .arnes/ .gitignore
-git commit -m "chore: adopt Arnes v0.1.0 (SDD+TDD framework)"
+git commit -m "chore: adopt Arnes v$(cat $ARNES_PROJECT_DIR/.arnes/version) (SDD+TDD framework)"
 ```
 
 Este commit pasa por el hook (scan-secrets, etc.). Si falla, hay un problema

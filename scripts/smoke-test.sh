@@ -80,9 +80,24 @@ echo "3b. Docs internos (Claude only, NO visibles al usuario)"
 check "docs/internos/README.md" "test -f '$SKILL_DIR/docs/internos/README.md'"
 check "docs/internos/atomicidad.md" "test -f '$SKILL_DIR/docs/internos/atomicidad.md'"
 check "docs/internos/sesiones.md" "test -f '$SKILL_DIR/docs/internos/sesiones.md'"
-check "docs/internos/protocolo-sesion.md (v0.2.1)" "test -f '$SKILL_DIR/docs/internos/protocolo-sesion.md'"
+check "docs/internos/protocolo-sesion.md" "test -f '$SKILL_DIR/docs/internos/protocolo-sesion.md'"
 check "docs/atomicidad.md NO existe en raiz (se movio)" "! test -f '$SKILL_DIR/docs/atomicidad.md'"
 check "docs/sesiones.md NO existe en raiz (se movio)" "! test -f '$SKILL_DIR/docs/sesiones.md'"
+check ".version en raiz (v0.2.2+)" "test -f '$SKILL_DIR/.version'"
+check ".version contiene 0.2.2 o superior" "grep -qE '^0\\.2\\.[2-9]|^0\\.[3-9]\\.|^[1-9]' '$SKILL_DIR/.version'"
+echo ""
+
+echo "3c. Plantilla web-simple (v0.2.2: pnpm 11 + node 22)"
+check "web-simple usa pnpm@11" "grep -q 'pnpm@11' '$SKILL_DIR/plantillas/web-simple/package.json.tmpl'"
+check "web-simple exige node >=22" "grep -q '\"node\": \">=22\"' '$SKILL_DIR/plantillas/web-simple/package.json.tmpl'"
+check "nextjs-supabase usa pnpm@11" "grep -q 'pnpm@11' '$SKILL_DIR/plantillas/nextjs-supabase/package.json.tmpl'"
+check "nextjs-supabase exige node >=22" "grep -q '\"node\": \">=22\"' '$SKILL_DIR/plantillas/nextjs-supabase/package.json.tmpl'"
+echo ""
+
+echo "3d. ARNES_SKILL_DIR — no quedan rutas hardcoded en modos ni docs/internos"
+check "No ~/.claude/skills/arnes en modos/express.md" "! grep -q 'node ~/.claude/skills/arnes\\|bash ~/.claude/skills/arnes' '$SKILL_DIR/modos/express.md'"
+check "No ~/.claude/skills/arnes en modos/mantener.md (funcional)" "! grep -qE 'node ~/.claude/skills/arnes|bash ~/.claude/skills/arnes|cat ~/.claude/skills/arnes' '$SKILL_DIR/modos/mantener.md'"
+check "No ~/.claude/skills/arnes en docs/internos/protocolo-sesion.md (funcional)" "! grep -qE 'node ~/.claude/skills/arnes|bash ~/.claude/skills/arnes' '$SKILL_DIR/docs/internos/protocolo-sesion.md'"
 echo ""
 
 # ─── 4. Sub-agentes consolidados ──────────────────────────────
@@ -125,7 +140,7 @@ check "render-template.mjs existe" "test -f '$SKILL_DIR/scripts/render-template.
 check "generate-manifest.mjs existe (v0.2.1)" "test -f '$SKILL_DIR/scripts/generate-manifest.mjs'"
 check "generate-manifest.mjs --help responde" "node '$SKILL_DIR/scripts/generate-manifest.mjs' --help"
 check "e2e-test.sh ejecutable" "test -x '$SKILL_DIR/scripts/e2e-test.sh'"
-check "docs/internos/protocolo-sesion.md (v0.2.1)" "test -f '$SKILL_DIR/docs/internos/protocolo-sesion.md'"
+check "docs/internos/protocolo-sesion.md" "test -f '$SKILL_DIR/docs/internos/protocolo-sesion.md'"
 echo ""
 
 # ─── 7. Plantillas armazon-comun ────────────────────────────────

@@ -14,7 +14,7 @@ normal. Yo te llevo de la mano.
 Solo tres cosas. Si no las tienes, te dejo enlaces. Si te lias, pregunta
 en la comunidad iAmasters.
 
-### 1. Node.js (version 20 o superior)
+### 1. Node.js (version 22 o superior)
 
 Es el «motor» que va a hacer correr la web en tu ordenador.
 
@@ -24,7 +24,8 @@ Es el «motor» que va a hacer correr la web en tu ordenador.
   ```
   node --version
   ```
-  Si dice `v20.x.x` o superior, OK. Si dice «command not found», hay que instalarlo.
+  Si dice `v22.x.x` o superior, OK. Si dice «command not found» o una
+  version menor, hay que instalarla.
 
 ### 2. PNPM
 

@@ -53,7 +53,7 @@ Lo que hago internamente:
 2. Renderizo la plantilla `plantillas/web-simple/` con tus variables:
    ```bash
    node scripts/render-template.mjs --dir \
-     ~/.claude/skills/arnes/plantillas/web-simple \
+     $ARNES_SKILL_DIR/plantillas/web-simple \
      ~/.arnes-staging/<sid>/<nombre-proyecto> \
      --var PROJECT_NAME=<nombre> \
      --var PROJECT_DESCRIPTION="<descripcion>"

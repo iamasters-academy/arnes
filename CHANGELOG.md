@@ -7,6 +7,104 @@ y este proyecto sigue [Semantic Versioning](https://semver.org/lang/es/).
 
 ---
 
+## [0.2.2] — 2026-05-20
+
+**Patch release tras feedback de Fernando sobre v0.2.1.** Tres areas a
+limpiar: README desactualizado, rutas hardcoded, versiones pnpm/node
+antiguas. Auditoria exhaustiva: tambien se arreglan referencias
+asociadas que Fer no menciono pero estaban en el mismo problema.
+
+### Arreglado
+
+**P1 — README cuerpo desactualizado (lineas 1-100).**
+Antes seguia siendo el README de v0.1.0: «MVP v0.1.0», tabla «Los 3
+modos: Nuevo / Adoptar / Mantener», stack solo Next+Supabase. Solo el
+Roadmap estaba al dia.
+Cambios:
+- Header reescrito: v0.2.2 con descripcion alineada a 3 niveles.
+- «Para que sirve» reescrito mencionando Express / Estandar / PRO.
+- «Cuando NO usarla» eliminado (Express ya cubre ese caso).
+- Tabla de modos: ahora son 5 (Express/Estandar/PRO + Adoptar/Mantener).
+- Stack: tabla por modo (web-simple vs nextjs-supabase).
+- Estructura de la skill: actualizada con `tutorial/`, `docs/internos/`,
+  ambas plantillas, los 5 modos.
+- Anrnadida seccion «Customizar la ruta (avanzado)» con `ARNES_SKILL_DIR`.
+
+**P2 — Rutas hardcoded `~/.claude/skills/arnes/`.**
+Fer marco 6 sitios en `modos/express.md` y `modos/mantener.md`.
+Auditoria descubrio **10 sitios mas en `docs/internos/protocolo-sesion.md`**.
+Total: 16 sitios funcionales hardcoded.
+
+Solucion: `protocolo-sesion.md` Regla 1 ahora obliga a exportar
+`ARNES_SKILL_DIR` al inicio del modo (junto con `ARNES_SESSION_ID` y
+`ARNES_PROJECT_DIR`):
+
+```bash
+export ARNES_SKILL_DIR="${ARNES_SKILL_DIR:-$HOME/.claude/skills/arnes}"
+```
+
+Todos los modos y el protocolo-sesion.md usan ahora `$ARNES_SKILL_DIR/...`
+en lugar de la ruta literal. Si IA Masters OS instala la skill en otra
+ruta, basta con exportar la variable.
+
+Apariciones restantes de `~/.claude/skills/arnes/` (legitimas, no
+funcionales):
+- 3 en `protocolo-sesion.md` (texto explicativo de la regla).
+- 2 en docstrings de `scripts/generate-manifest.mjs`.
+- 4 en README (ejemplos pedagogicos para el caso default).
+
+**P3 — `packageManager: pnpm@9.0.0` y `engines.node: ">=20"`.**
+Mayo 2026 toca pnpm 11 y Node 22 LTS.
+
+Actualizado en:
+- `plantillas/web-simple/package.json.tmpl`: pnpm@9.0.0 → pnpm@11.0.0,
+  node >=20 → >=22.
+- `plantillas/nextjs-supabase/package.json.tmpl`: idem.
+- `tutorial/PRIMER-PROYECTO.md`: «Node.js version 20 o superior» →
+  «version 22 o superior».
+- `modos/pro.md` pre-verificacion: `node --version >= 20` → `>= 22`,
+  `pnpm --version >= 8` → `>= 11`.
+
+### Bonus encontrados durante la auditoria
+
+- `modos/adoptar.md:149` hardcodeaba `echo "0.1.0" > .arnes/version` —
+  ahora lee de `$ARNES_SKILL_DIR/.version` con fallback a 0.2.2.
+- `modos/adoptar.md:191` commit message hardcodeaba `Arnes v0.1.0` —
+  ahora interpola la version real del proyecto.
+- `modos/mantener.md:34` fallback `echo "0.1.0"` → `echo "0.2.2"`.
+- `modos/mantener.md:215` ejemplo de manifest tenia `"version": "0.1.0"`
+  → `"version": "0.2.2"`.
+- Anrnadido `.version` en la raiz de la skill con `0.2.2` (necesario
+  para que los modos puedan leerlo con `cat $ARNES_SKILL_DIR/.version`).
+
+### Anrnadido
+
+- Fichero `.version` en la raiz de la skill (1 linea: la version actual).
+- Seccion «Customizar la ruta (avanzado)» en el README.
+
+### Modificado
+
+- `README.md` — cuerpo completo reescrito (~140 lineas).
+- `docs/internos/protocolo-sesion.md` — Regla 1 ampliada con
+  `ARNES_SKILL_DIR`, todas las invocaciones de scripts usan la variable.
+- `modos/express.md`, `modos/mantener.md` — rutas hardcoded → `$ARNES_SKILL_DIR`.
+- `modos/pro.md` — pre-verificacion node>=22, pnpm>=11.
+- `modos/adoptar.md` — leer `.version` en lugar de hardcodear «0.1.0».
+- `modos/mantener.md` — bonus listed above.
+- `plantillas/web-simple/package.json.tmpl` — pnpm 11, node 22.
+- `plantillas/nextjs-supabase/package.json.tmpl` — idem.
+- `tutorial/PRIMER-PROYECTO.md` — version Node actualizada.
+- `CITATION.cff` — version 0.2.2.
+
+### Leccion canonica
+
+Cuando el feedback dice «6 sitios», auditar exhaustivamente: casi siempre
+hay mas. La auditoria de v0.2.2 encontro 10 apariciones extra que Fer no
+habia visto. Aplicar mismo grep a ficheros adyacentes (`docs/`, `scripts/`)
+antes de cerrar.
+
+---
+
 ## [0.2.1] — 2026-05-20
 
 **Patch release tras validacion E2E de v0.2.0.** Tests con 5 sub-agentes

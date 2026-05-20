@@ -9,18 +9,30 @@ funciona, responde en lenguaje plano sin referenciar este fichero.**
 
 ---
 
-## Regla 1: ARNES_SESSION_ID se fija UNA SOLA VEZ al inicio del modo
+## Regla 1: tres variables fijadas UNA SOLA VEZ al inicio del modo
 
-Antes de invocar nada en `scripts/`, generar y exportar ARNES_SESSION_ID:
+Antes de invocar nada en `scripts/`, generar y exportar las tres variables
+clave:
 
 ```bash
+# Path a la skill. Por defecto ~/.claude/skills/arnes, pero IA Masters OS
+# puede instalarla en otra ruta — siempre leer la env var.
+export ARNES_SKILL_DIR="${ARNES_SKILL_DIR:-$HOME/.claude/skills/arnes}"
+
+# Identificador unico de esta sesion. Lo respetan atomic.mjs y session.mjs.
 export ARNES_SESSION_ID="sess_$(date +%s)_$$"
-export ARNES_PROJECT_DIR="<destino-final>"   # o staging si aplica
+
+# Donde vivira el proyecto (o staging si aplica).
+export ARNES_PROJECT_DIR="<destino-final>"
 ```
 
-Y mantenerlos hasta que termine el modo. Todos los `node scripts/atomic.mjs`,
-`node scripts/session.mjs`, `node scripts/generate-manifest.mjs` heredan
-estas vars.
+Y mantenerlos hasta que termine el modo. Todos los `node $ARNES_SKILL_DIR/scripts/...`,
+`bash $ARNES_SKILL_DIR/scripts/...` heredan estas vars.
+
+**Por que `ARNES_SKILL_DIR`:** la skill puede estar en `~/.claude/skills/arnes/`
+(default), en `~/iamasters-os/skills/arnes/` (cuando IA Masters OS la instala),
+o en cualquier otra ruta. Hardcodear `~/.claude/skills/arnes` rompe esto.
+Siempre usar la variable.
 
 **Por que:** session.mjs es estricto a proposito — solo el dueno del lock
 puede liberarlo. Si Claude cambia de session_id a mitad de flujo (porque
@@ -42,22 +54,22 @@ export ARNES_SESSION_ID="sess_$(date +%s)_$$"
 export ARNES_PROJECT_DIR="<destino>"
 
 # Paso 1: adquirir lock
-node ~/.claude/skills/arnes/scripts/session.mjs acquire-lock --current-op <op>
+node $ARNES_SKILL_DIR/scripts/session.mjs acquire-lock --current-op <op>
 
 # Paso 2: trabajar en staging
 mkdir -p ~/.arnes-staging/$ARNES_SESSION_ID/<proyecto>
-node ~/.claude/skills/arnes/scripts/render-template.mjs --dir ... <staging>
-node ~/.claude/skills/arnes/scripts/atomic.mjs log mkdir --path <staging>
+node $ARNES_SKILL_DIR/scripts/render-template.mjs --dir ... <staging>
+node $ARNES_SKILL_DIR/scripts/atomic.mjs log mkdir --path <staging>
 # ... mas operaciones, cada una loguea con atomic.mjs ...
 
 # Paso 3: promote atomico
-node ~/.claude/skills/arnes/scripts/atomic.mjs promote <staging> <destino>
+node $ARNES_SKILL_DIR/scripts/atomic.mjs promote <staging> <destino>
 
 # Paso 4: configurar el armazon
-bash ~/.claude/skills/arnes/scripts/setup-multi-ia.sh <destino>
+bash $ARNES_SKILL_DIR/scripts/setup-multi-ia.sh <destino>
 
 # Paso 5: generar manifest (NUEVO en v0.2.1)
-node ~/.claude/skills/arnes/scripts/generate-manifest.mjs generate <destino>
+node $ARNES_SKILL_DIR/scripts/generate-manifest.mjs generate <destino>
 
 # Paso 6: git init + commit
 cd <destino>
@@ -66,7 +78,7 @@ git add .
 git commit -m "..." --no-verify   # solo el primer commit; despues el hook esta activo
 
 # Paso 7: liberar lock (MISMO ARNES_SESSION_ID que en paso 1)
-node ~/.claude/skills/arnes/scripts/session.mjs release-lock
+node $ARNES_SKILL_DIR/scripts/session.mjs release-lock
 ```
 
 ---
@@ -86,12 +98,12 @@ export ARNES_PROJECT_DIR="<proyecto>"
 # Verificar manifest. Si no existe, generar uno con los hashes actuales.
 if [ ! -f "$ARNES_PROJECT_DIR/.arnes/manifest.json" ]; then
   echo "Manifest no existe (proyecto instalado pre-v0.2.1). Generando linea base."
-  node ~/.claude/skills/arnes/scripts/generate-manifest.mjs generate "$ARNES_PROJECT_DIR" \
+  node $ARNES_SKILL_DIR/scripts/generate-manifest.mjs generate "$ARNES_PROJECT_DIR" \
     --version "$(cat $ARNES_PROJECT_DIR/.arnes/version)"
 fi
 
 # Verificar que ficheros estan modificados
-node ~/.claude/skills/arnes/scripts/generate-manifest.mjs verify "$ARNES_PROJECT_DIR"
+node $ARNES_SKILL_DIR/scripts/generate-manifest.mjs verify "$ARNES_PROJECT_DIR"
 # Output dira: unchanged / modified / missing por fichero.
 # Solo sobrescribir los unchanged. Para los modified, preguntar al usuario.
 ```
@@ -99,7 +111,7 @@ node ~/.claude/skills/arnes/scripts/generate-manifest.mjs verify "$ARNES_PROJECT
 Tras actualizar, regenerar el manifest con la nueva version:
 
 ```bash
-node ~/.claude/skills/arnes/scripts/generate-manifest.mjs generate "$ARNES_PROJECT_DIR" \
+node $ARNES_SKILL_DIR/scripts/generate-manifest.mjs generate "$ARNES_PROJECT_DIR" \
   --version 0.2.1
 ```
 
@@ -115,7 +127,7 @@ Solucion: en mantener, ejecutar `setup-multi-ia.sh` al final (es
 idempotente — si el symlink ya existe, lo salta).
 
 ```bash
-bash ~/.claude/skills/arnes/scripts/setup-multi-ia.sh "$ARNES_PROJECT_DIR"
+bash $ARNES_SKILL_DIR/scripts/setup-multi-ia.sh "$ARNES_PROJECT_DIR"
 ```
 
 ---
@@ -125,7 +137,7 @@ bash ~/.claude/skills/arnes/scripts/setup-multi-ia.sh "$ARNES_PROJECT_DIR"
 Si algo falla y hay que hacer rollback:
 
 ```bash
-node ~/.claude/skills/arnes/scripts/atomic.mjs rollback
+node $ARNES_SKILL_DIR/scripts/atomic.mjs rollback
 # Usa ARNES_SESSION_ID actual para identificar que operaciones deshacer.
 ```
 

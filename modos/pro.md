@@ -313,15 +313,15 @@ mv .specs/active/<feature> .specs/archived/$(date +%Y-%m-%d)_<feature>
 
 Antes de tocar staging, verifico:
 
-- [ ] `node --version` >= 20.
-- [ ] `pnpm --version` >= 8.
+- [ ] `node --version` >= 22.
+- [ ] `pnpm --version` >= 11.
 - [ ] `git --version` (cualquier version >= 2.30).
 - [ ] El path destino no existe O esta vacio.
 - [ ] Hay al menos 500MB libres en disco.
 
 Si falta algo, lo reporto y paro. Por ejemplo:
 
-> «No tienes Node.js instalado. Para usar Arnes necesitas Node 20 o superior.
+> «No tienes Node.js instalado (o tienes una version menor de 22). Para usar Arnes necesitas Node 22 o superior.
 > Te lo bajas en https://nodejs.org. Avisa cuando lo tengas y reanudo.»
 
 ---

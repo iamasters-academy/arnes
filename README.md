@@ -1,88 +1,116 @@
-# Arnes
+# Arnes — v0.2.2
 
-Skill de Claude Code que arranca proyectos de software profesional con
-metodologia SDD (Spec-Driven Development) + TDD (Test-Driven Development).
+Skill de Claude Code que ayuda a vibe-coders no tecnicos a arrancar y
+mantener proyectos de software paso a paso, sin que la IA se descontrole.
 
-Basada en el trabajo de Fernando Montero (`fs-scaffold`), adaptada y simplificada
-para la comunidad IA Masters Academy. MVP v0.1.0.
+Basada en el trabajo de Fernando Montero (`fs-scaffold`), adaptada para la
+comunidad IA Masters Academy. **Skill opt-in en IA Masters OS.**
 
 ---
 
 ## Para que sirve
 
-Para arrancar proyectos de software **bien hechos desde el minuto uno**.
+Para construir proyectos de software **al nivel que tu necesites**, sin
+abrumar:
 
-En vez de empezar a programar a lo loco y luego comprobar si funciona,
-Arnes impone disciplina:
+- ⚡ **Express** — una web simple en 5 minutos (sin specs, sin tests, sin
+  ceremonia). Para landings, prototipos y MVPs.
+- 🛠️ **Estandar** — proyectos con login y datos en 20-30 min, con
+  blueprint y verificaciones automaticas. Para apps personales o de tu negocio.
+- 🎯 **PRO** — software profesional con disciplina SDD+TDD completa,
+  revision adversarial de seguridad. Para clientes que pagan o proyectos
+  que aguantaran anros.
 
-1. **Especificas** lo que quieres antes de tocar codigo.
-2. **Escribes los tests** antes que la implementacion.
-3. **Otra IA escribe el codigo** para pasar esos tests.
-4. **Una IA critica busca fallos** antes de cerrar la feature.
+Y para proyectos que ya existen:
 
-El resultado: codigo que cumple lo que prometio, mantenible a 6 meses,
-sin agujeros de seguridad, y replicable en otros proyectos.
+- **Adoptar** — meter el armazon Arnes en un proyecto antiguo sin tocar
+  tu codigo.
+- **Mantener** — actualizar el armazon de un proyecto Arnes cuando la
+  skill evoluciona.
 
----
-
-## Cuando NO usarla
-
-- Prototipos rapidos donde solo quieres ver si una idea pega.
-- Hackathons o experimentos de fin de semana.
-- Scripts de un solo uso.
-
-Arnes tiene un coste de tiempo al principio (15-30 min de entrevista y plan
-antes de programar). Para esos casos, es overkill.
-
-**Por eso, cada vez que se activa, Arnes pregunta primero si quieres usarla
-o si prefieres un arranque rapido sin ceremonia.** Esa decision es tuya.
+**Siempre que se activa, Arnes pregunta primero que nivel necesitas.** La
+decision es tuya. Para el 80% de casos vale con Express.
 
 ---
 
 ## Instalacion (opt-in)
 
-Arnes viene **desactivada por defecto** en iAmasters OS. El usuario decide
-si la habilita.
+Arnes viene **desactivada por defecto** en IA Masters OS. El usuario
+decide si la habilita.
 
-### En tu instalacion local (~/.claude/skills/)
+### En tu instalacion local
 
-Si ya tienes la skill en `~/.claude/skills/arnes/`, esta lista para activarse
-cuando triggees con frases como "nuevo proyecto", "crear app", etc.
+Si ya tienes la skill en `~/.claude/skills/arnes/`, esta lista para
+activarse cuando triggees con frases como «nueva web», «crea una app»,
+«arrancar proyecto», etc.
 
-Para deshabilitarla temporalmente, mueve la carpeta o renombra `SKILL.md`:
+Para deshabilitarla temporalmente:
 
 ```bash
-# Desactivar
 mv ~/.claude/skills/arnes/SKILL.md ~/.claude/skills/arnes/SKILL.md.disabled
+```
 
-# Reactivar
+Para reactivarla:
+
+```bash
 mv ~/.claude/skills/arnes/SKILL.md.disabled ~/.claude/skills/arnes/SKILL.md
 ```
 
-### En iAmasters OS (cuando se distribuya)
+### En IA Masters OS (cuando se distribuya)
 
-El instalador de iAmasters OS preguntara explicitamente:
+El instalador de IA Masters OS preguntara explicitamente si la quieres.
+Si no la activas, no aparece — opt-in puro.
 
-> «¿Quieres instalar Arnes (skill para arrancar proyectos profesionales con SDD+TDD)?
-> Es opt-in: solo se activa si la habilitas. Recomendado para quien quiera
-> trabajar con metodo. Saltable para quien prefiera arranques rapidos.»
+### Customizar la ruta (avanzado)
 
----
+Si la skill no esta en `~/.claude/skills/arnes/` (por ejemplo, en una
+instalacion compartida o portatil), define la variable de entorno:
 
-## Los 3 modos
+```bash
+export ARNES_SKILL_DIR="/ruta/a/tu/copia/de/arnes"
+```
 
-| Modo | Cuando | Que hace |
-|------|--------|----------|
-| **Nuevo** | Arrancas desde cero | Entrevista, plan, monta el armazon completo |
-| **Adoptar** | Tienes un proyecto sin armazon Arnes | Auditoria, backup, inyecta el armazon sin tocar tu codigo |
-| **Mantener** | Tienes un proyecto con Arnes que se quedo anticuado | Sincroniza docs y hooks respetando tus cambios |
+Los scripts y modos leen esa variable para localizar el armazon.
 
 ---
 
-## Stack inicial (v1)
+## Tutorial: tu primer proyecto
 
-Solo Next.js + Supabase + Tailwind + PNPM + Playwright + Vercel.
-Mas stacks (Backend API Node, CLI, Edge, Web publica) llegan en v2.
+Si nunca has usado Claude Code o no sabes que es un repo, mira primero
+[`tutorial/PRIMER-PROYECTO.md`](tutorial/PRIMER-PROYECTO.md). En 30 minutos
+tienes tu primera web online.
+
+---
+
+## Los 5 modos
+
+### Para proyectos nuevos
+
+| Modo | Cuando | Tiempo | Artefactos | Plantilla |
+|------|--------|--------|------------|-----------|
+| ⚡ **Express** | Landing, MVP, prueba rapida | 5 min | Cero | `web-simple` (Next + Tailwind) |
+| 🛠️ **Estandar** | App con usuarios y datos | 20-30 min | 2 (spec + tests) | `nextjs-supabase` |
+| 🎯 **PRO** | Cliente que paga, alta calidad | 1-2 h | 6 (spec, plan, tasks, tests, review, adversarial) | `nextjs-supabase` |
+
+### Para proyectos existentes
+
+| Modo | Cuando | Promesa |
+|------|--------|---------|
+| **Adoptar** | Tu proyecto NO tiene armazon Arnes | No toco tu codigo, solo anrnado armazon |
+| **Mantener** | Tu proyecto SI tiene Arnes (vieja version) | Solo actualizo armazon, respeto tus specs |
+
+---
+
+## Stack segun modo
+
+| Modo | Frontend | Backend | Tests | Deploy | Plantilla |
+|------|----------|---------|-------|--------|-----------|
+| Express | Next.js + Tailwind | — | — | Vercel | `web-simple` |
+| Estandar | Next.js + Tailwind | Supabase (login + DB) | Playwright basico | Vercel | `nextjs-supabase` |
+| PRO | Next.js + Tailwind | Supabase + RLS + migrations | Vitest + Playwright completo | Vercel | `nextjs-supabase` |
+
+Si quieres otro stack (Vue, Astro, etc.), usa Modo Express y montatelo a
+mano. Mas plantillas (Backend API Node, CLI, Edge) llegan en v0.3.
 
 ---
 
@@ -90,12 +118,27 @@ Mas stacks (Backend API Node, CLI, Edge, Web publica) llegan en v2.
 
 ```
 ~/.claude/skills/arnes/
-├── SKILL.md                 # Trigger + flujo principal (lo que la IA lee)
-├── README.md                # Para humanos (este archivo)
-├── docs/                    # Documentacion canonica (incluye ciclo-magico y glosario)
-├── modos/                   # 3 pipelines (nuevo, adoptar, mantener)
-├── plantillas/              # Armazon comun + plantillas de stack
-├── scripts/                 # Helpers (detector de modo, rollback, lock)
+├── SKILL.md                 # Trigger + gate de 3 niveles
+├── README.md                # Este fichero
+├── CHANGELOG.md             # Historial de versiones
+├── docs/                    # Documentacion para usuarios
+│   ├── arnes.md             #   manifiesto
+│   ├── glosario.md          #   traduccion de jerga
+│   ├── ciclo-magico.md      #   9 etapas del modo PRO
+│   ├── seguridad.md         #   reglas inviolables
+│   └── internos/            #   docs solo para Claude (no visibles al usuario)
+├── modos/                   # 5 pipelines
+│   ├── express.md
+│   ├── estandar.md
+│   ├── pro.md
+│   ├── adoptar.md
+│   └── mantener.md
+├── plantillas/              # Plantillas que se inyectan en proyectos
+│   ├── armazon-comun/       #   AGENTS.md, hooks, specs-templates
+│   ├── web-simple/          #   Next + Tailwind (Modo Express)
+│   └── nextjs-supabase/     #   Next + Supabase (Modo Estandar/PRO)
+├── scripts/                 # Helpers (Bash + Node ESM)
+├── tutorial/                # Guia 30 min + ejemplo de feature
 └── estado/                  # Templates del implementation-status
 ```
 
@@ -115,12 +158,28 @@ Mas stacks (Backend API Node, CLI, Edge, Web publica) llegan en v2.
 
 - [docs/internos/atomicidad.md](docs/internos/atomicidad.md) — staging y rollback
 - [docs/internos/sesiones.md](docs/internos/sesiones.md) — lock y auto-resume
+- [docs/internos/protocolo-sesion.md](docs/internos/protocolo-sesion.md) — uso de ARNES_SKILL_DIR / SESSION_ID / PROJECT_DIR
 
 ---
 
 ## Roadmap
 
-### v0.2.1 — 20 mayo 2026 (release actual, patch)
+### v0.2.2 — 20 mayo 2026 (release actual, patch)
+
+Tras feedback de Fernando sobre v0.2.1. Limpia README, rutas hardcoded y
+versiones obsoletas.
+
+- [x] README cuerpo (lineas 1-100) reescrito y alineado a v0.2.2
+- [x] Introducida variable `ARNES_SKILL_DIR` en protocolo-sesion.md
+- [x] 16 rutas hardcoded `~/.claude/skills/arnes/` → `$ARNES_SKILL_DIR`
+      (en modos, docs/internos y referencias asociadas)
+- [x] `packageManager: pnpm@9.0.0` → `pnpm@11.0.0` en ambas plantillas
+- [x] `engines.node: ">=20"` → `">=22"` en ambas plantillas
+- [x] Tutorial Node version actualizada a 22
+- [x] Fix bonus: versiones `0.1.0` hardcoded en modos/adoptar y modos/mantener
+- [x] Fichero `.version` en raiz de la skill
+
+### v0.2.1 — 20 mayo 2026 (patch)
 
 Tras E2E con 5 sub-agentes Claude Haiku en paralelo (5/5 PASA), arreglo
 los 2 bugs y 1 mejora detectados.
